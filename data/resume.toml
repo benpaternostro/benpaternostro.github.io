@@ -1,19 +1,34 @@
 [basics]
 name = "Ben Quinteros"
-headline = "Senior QA Automation Engineer"
+headline = "Senior Software Engineer"
 location = "Australia"
 website = "https://benquinteros.com"
-summary = "QA and reliability engineer with deep experience building automation platforms, CI/CD integrations, and observability-driven quality practices across fintech and SaaS."
-
+email = "hi@benquinteros.com"
+summary = "Fullstack engineer who brings a quality engineering mindset to product delivery from CI pipelines and observability platforms to end-to-end automation across fintech and SaaS."
 [[links]]
 label = "LinkedIn"
 url = "https://www.linkedin.com/in/benjaminquinteros"
 
 [[experience]]
 company = "Greenstone Financial Services"
+role = "Senior Software Engineer"
+start_date = "2026-03"
+end_date = "Present"
+location = "Sydney, NSW, Australia"
+summary = "Transitioned into a fullstack engineering role on the Customer Portals Team, owning feature delivery and platform observability across customer-facing systems."
+highlights = [
+  "Led adoption of OpenTelemetry and OpenFeature (with LaunchDarkly), enabling end-to-end observability and progressive feature delivery",
+  "Consolidated observability into Datadog (logs, metrics, traces, RUM) for unified system visibility",
+  "Improved the E2E framework to run in ~2 minutes by spinning up ephemeral environments in CI, bypassing third-party auth, caching sessions, and parallelising test execution",
+  "Built a self-service test data platform for pre-prod, eliminating manual DB access and enabling cross-functional teams to use realistic scenarios",
+  "Shifted team away from routine manual production testing and out-of-hours deployments, making them exception-based rather than standard practice"
+]
+
+[[experience]]
+company = "Greenstone Financial Services"
 role = "Senior Software QA Engineer"
 start_date = "2025-03"
-end_date = "Present"
+end_date = "2026-02"
 location = "Sydney, NSW, Australia"
 summary = "Led modern QA automation strategy and framework rollout using Playwright and CI/CD integration."
 highlights = [
