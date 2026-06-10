@@ -61,7 +61,7 @@ load_data(path="data/resume.toml") %}
     <ul>
       {% for item in resume.education %}
       <li>
-        <strong>{{ item.institution }}</strong> — {{ item.study_type }} {{
+        <strong>{{ item.institution }}</strong> — {{ item.study_type }}, {{
         item.area }} ({{ item.start_date }} - {{ item.end_date }})
       </li>
       {% endfor %}
