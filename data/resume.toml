@@ -23,7 +23,7 @@ highlights = [
   "Consolidated observability into Datadog (logs, metrics, traces, RUM) for unified system visibility",
   "Improved the E2E framework to run in ~2 minutes by spinning up ephemeral environments in CI, bypassing third-party auth, caching sessions, and parallelising test execution",
   "Built a self-service test data platform for pre-prod, eliminating manual DB access and enabling cross-functional teams to use realistic scenarios",
-  "Shifted team away from routine manual production testing and out-of-hours deployments, making them exception-based rather than standard practice"
+  "Moved the team to routine business-hours deployments, making out-of-hours releases and manual production validation the exception rather than the norm"
 ]
 
 [[experience]]
