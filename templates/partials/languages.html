@@ -5,7 +5,7 @@
   </h3>
   {% set spoken = false %}
   <ul class="text-sm space-y-1">
-    {% for skill in resume.skills %} {% if skill.name == "Languages Spoken" %}
+    {% for skill in resume.skills %} {% if skill.name == "Spoken Languages" %}
     {% set_global spoken = true %} {% for lang in skill.keywords %}
     <li>{{ lang }}</li>
     {% endfor %} {% endif %} {% endfor %}

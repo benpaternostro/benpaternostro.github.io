@@ -4,11 +4,11 @@
     Skills
   </h3>
   <div class="space-y-4">
-    {% for skill in resume.skills %}
+    {% for skill in resume.skills %} {% if skill.name != "Spoken Languages" %}
     <div>
       <h4 class="font-semibold mb-1">{{ skill.name }}</h4>
       <p class="text-sm opacity-90">{{ skill.keywords | join(sep=", ") }}</p>
     </div>
-    {% endfor %}
+    {% endif %} {% endfor %}
   </div>
 </section>
