@@ -17,6 +17,11 @@ load_data(path="data/resume.toml") %}
       >
     </p>
     <p>{{ resume.basics.summary }}</p>
+    <p>
+      <a href="{{ get_url(path='@/resume-print.md') }}"
+        >Printable / PDF version →</a
+      >
+    </p>
     {% if resume.links %}
     <ul aria-label="Professional links">
       {% for link in resume.links %}

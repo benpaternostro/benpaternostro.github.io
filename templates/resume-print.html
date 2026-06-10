@@ -1,0 +1,163 @@
+{% set resume = load_data(path="data/resume.toml") %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{{ resume.basics.name }} — Resume</title>
+    <meta name="description" content="Printable resume for {{ resume.basics.name }}" />
+    <style>
+      :root {
+        --ink: #111;
+        --muted: #555;
+        --rule: #bbb;
+      }
+      * { box-sizing: border-box; }
+      html, body {
+        margin: 0;
+        padding: 0;
+        background: #f4f4f5;
+        color: var(--ink);
+        font-family: Arial, Helvetica, "Segoe UI", system-ui, sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+      .page {
+        max-width: 820px;
+        margin: 24px auto;
+        background: #fff;
+        padding: 40px 48px 48px;
+        box-shadow: 0 1px 8px rgba(0, 0, 0, 0.12);
+      }
+      h1 { font-size: 26px; margin: 0 0 2px; }
+      .headline { font-size: 14px; color: var(--muted); margin: 0 0 8px; }
+      .contact { font-size: 12px; color: var(--muted); margin: 0 0 12px; line-height: 1.5; }
+      .contact a { color: var(--muted); text-decoration: none; }
+      .summary { font-size: 13.5px; line-height: 1.5; margin: 0; }
+      hr.top { border: 0; border-top: 1px solid var(--rule); margin: 12px 0 4px; }
+      h2 {
+        font-size: 12.5px;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        border-bottom: 1px solid var(--rule);
+        padding-bottom: 4px;
+        margin: 20px 0 10px;
+        break-after: avoid;
+        page-break-after: avoid;
+      }
+      .role { margin: 0 0 13px; break-inside: avoid; page-break-inside: avoid; }
+      .role-head {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        align-items: baseline;
+      }
+      .role-title { font-weight: 700; font-size: 13.5px; }
+      .role-company { color: var(--muted); }
+      .role-dates { color: var(--muted); font-size: 12px; white-space: nowrap; }
+      .role-summary { font-size: 12.5px; color: #333; margin: 3px 0 4px; }
+      ul { margin: 5px 0 0; padding-left: 18px; }
+      li { font-size: 12.5px; line-height: 1.45; margin-bottom: 3px; }
+      .skill-row { font-size: 12.5px; line-height: 1.5; margin-bottom: 4px; }
+      .skill-label { font-weight: 700; }
+      .toolbar { position: fixed; top: 16px; right: 16px; display: flex; gap: 8px; z-index: 10; }
+      .toolbar button,
+      .toolbar a {
+        font: inherit;
+        font-size: 13px;
+        padding: 8px 14px;
+        border: 1px solid var(--ink);
+        border-radius: 6px;
+        cursor: pointer;
+        text-decoration: none;
+        line-height: 1;
+      }
+      .toolbar button { background: var(--ink); color: #fff; }
+      .toolbar a { background: #fff; color: var(--ink); }
+      .hint { font-size: 11px; color: var(--muted); text-align: center; padding: 14px 0 28px; }
+      @media print {
+        html, body { background: #fff; }
+        .page { box-shadow: none; margin: 0; max-width: none; padding: 0; }
+        .toolbar, .hint { display: none !important; }
+        a { color: var(--ink); }
+        @page { size: A4; margin: 14mm; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="toolbar">
+      <a href="{{ get_url(path='@/resume.md') }}">← Back</a>
+      <button onclick="window.print()">Print / Save as PDF</button>
+    </div>
+
+    <main class="page">
+      <h1>{{ resume.basics.name }}</h1>
+      <p class="headline">{{ resume.basics.headline }}</p>
+      <p class="contact">
+        {{ resume.basics.location }}{% if resume.basics.email %} &middot;
+        <a href="mailto:{{ resume.basics.email }}">{{ resume.basics.email }}</a>{% endif %}{% if resume.basics.website %} &middot;
+        <a href="{{ resume.basics.website }}">{{ resume.basics.website | replace(from="https://", to="") }}</a>{% endif %}{% for link in resume.links %} &middot;
+        <a href="{{ link.url }}">{{ link.label }}</a>{% endfor %}
+      </p>
+      {% if resume.basics.summary %}<p class="summary">{{ resume.basics.summary }}</p>{% endif %}
+      <hr class="top" />
+
+      <section>
+        <h2>Skills</h2>
+        {% for skill in resume.skills %}
+        <div class="skill-row">
+          <span class="skill-label">{{ skill.name }}:</span> {{ skill.keywords | join(sep=", ") }}
+        </div>
+        {% endfor %}
+      </section>
+
+      <section>
+        <h2>Experience</h2>
+        {% for item in resume.experience %}
+        <div class="role">
+          <div class="role-head">
+            <div>
+              <span class="role-title">{{ item.role }}</span><span class="role-company"> &mdash; {{ item.company }}</span>
+            </div>
+            <div class="role-dates">{{ item.start_date }} &ndash; {{ item.end_date }}</div>
+          </div>
+          {% if item.summary %}<div class="role-summary">{{ item.summary }}</div>{% endif %}
+          {% if item.highlights %}
+          <ul>
+            {% for h in item.highlights %}<li>{{ h }}</li>{% endfor %}
+          </ul>
+          {% endif %}
+        </div>
+        {% endfor %}
+      </section>
+
+      <section>
+        <h2>Education</h2>
+        <ul>
+          {% for e in resume.education %}
+          <li><strong>{{ e.institution }}</strong> &mdash; {{ e.study_type }} {{ e.area }} ({{ e.start_date }}&ndash;{{ e.end_date }})</li>
+          {% endfor %}
+        </ul>
+      </section>
+
+      {% if resume.awards %}
+      <section>
+        <h2>Honors &amp; Awards</h2>
+        <ul>
+          {% for a in resume.awards %}<li>{{ a.title }}</li>{% endfor %}
+        </ul>
+      </section>
+      {% endif %}
+
+      {% if resume.projects %}
+      <section>
+        <h2>Selected Projects</h2>
+        <ul>
+          {% for p in resume.projects %}<li><strong>{{ p.name }}</strong> &mdash; {{ p.summary }}{% if p.url %} (<a href="{{ p.url }}">{{ p.url | replace(from="https://", to="") }}</a>){% endif %}</li>{% endfor %}
+        </ul>
+      </section>
+      {% endif %}
+    </main>
+
+    <p class="hint">Tip: in the print dialog, choose “Save as PDF” as the destination.</p>
+  </body>
+</html>
