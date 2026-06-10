@@ -85,7 +85,11 @@
   </head>
   <body>
     <div class="toolbar">
-      <a href="{{ get_url(path='@/resume.md') }}">← Back</a>
+      <a
+        href="{{ get_url(path='@/_index.md') }}"
+        onclick="if (history.length > 1 && document.referrer.startsWith(location.origin)) { history.back(); return false; }"
+        >← Back</a
+      >
       <button onclick="window.print()">Print / Save as PDF</button>
     </div>
 
