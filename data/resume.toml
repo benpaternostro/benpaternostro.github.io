@@ -15,7 +15,7 @@ role = "Senior Software Engineer"
 start_date = "Mar 2026"
 end_date = "Present"
 location = "Sydney, NSW, Australia"
-summary = "Own feature delivery and platform observability across customer-facing insurance and financial services portals in a high-availability environment."
+summary = "Own feature delivery and platform observability across customer-facing insurance and financial services portals."
 highlights = [
   "Deliver most feature work with coding agents (Claude Code, Codex, GitHub Copilot), applying established planning and implementation patterns while managing context quality and model cost",
   "Hold AI-written code to the same bar as any other change (TDD, type and lint gates in CI, code review), using MCP integrations to give agents the project context needed for planning and implementation",
@@ -32,7 +32,7 @@ role = "Senior Software QA Engineer"
 start_date = "Mar 2025"
 end_date = "Feb 2026"
 location = "Sydney, NSW, Australia"
-summary = "Led QA automation strategy and framework rollout using Playwright and CI/CD integration."
+summary = "Owned test automation strategy, frameworks, and test observability across customer-facing portals."
 highlights = [
   "Designed and implemented a Playwright end-to-end testing framework replacing legacy Selenium",
   "Integrated test framework into Azure DevOps pipelines for release-gated automation",
