@@ -12,7 +12,7 @@ url = "https://www.linkedin.com/in/benjaminquinteros"
 [[experience]]
 company = "Greenstone Financial Services"
 role = "Senior Software Engineer"
-start_date = "2026-03"
+start_date = "Mar 2026"
 end_date = "Present"
 location = "Sydney, NSW, Australia"
 summary = "Own feature delivery and platform observability across customer-facing insurance and financial services portals in a high-availability environment."
@@ -29,8 +29,8 @@ highlights = [
 [[experience]]
 company = "Greenstone Financial Services"
 role = "Senior Software QA Engineer"
-start_date = "2025-03"
-end_date = "2026-02"
+start_date = "Mar 2025"
+end_date = "Feb 2026"
 location = "Sydney, NSW, Australia"
 summary = "Led QA automation strategy and framework rollout using Playwright and CI/CD integration."
 highlights = [
@@ -46,8 +46,8 @@ highlights = [
 [[experience]]
 company = "Simpology Australia"
 role = "QA Automation Lead"
-start_date = "2024-03"
-end_date = "2025-01"
+start_date = "Mar 2024"
+end_date = "Jan 2025"
 location = "Sydney, NSW, Australia"
 summary = "Led company-wide automation strategy, roadmap, and platform implementation."
 highlights = [
@@ -62,8 +62,8 @@ highlights = [
 [[experience]]
 company = "DroneShield"
 role = "Senior Software QA Engineer"
-start_date = "2023-10"
-end_date = "2024-03"
+start_date = "Oct 2023"
+end_date = "Mar 2024"
 location = "Sydney, NSW, Australia"
 summary = "Owned QA automation and release quality for distributed systems and hardware/software integration."
 highlights = [
@@ -75,8 +75,8 @@ highlights = [
 [[experience]]
 company = "Rokt"
 role = "Senior Site Reliability Engineer"
-start_date = "2023-02"
-end_date = "2023-09"
+start_date = "Feb 2023"
+end_date = "Sep 2023"
 location = "Sydney, NSW, Australia"
 summary = "Led reliability initiatives across cloud-native services with incident management ownership."
 highlights = [
@@ -89,8 +89,8 @@ highlights = [
 [[experience]]
 company = "Rokt"
 role = "Senior Software Engineer (QA)"
-start_date = "2021-05"
-end_date = "2023-01"
+start_date = "May 2021"
+end_date = "Jan 2023"
 location = "Sydney, NSW, Australia"
 summary = "Built multi-language quality platforms for functional, contract, visual, and load testing."
 highlights = [
@@ -103,8 +103,8 @@ highlights = [
 [[experience]]
 company = "Rokt"
 role = "Software Engineer (QA)"
-start_date = "2020-02"
-end_date = "2021-05"
+start_date = "Feb 2020"
+end_date = "May 2021"
 location = "Sydney, Australia"
 summary = "Built automation for microservices and ML-adjacent systems in an agile delivery environment."
 highlights = [
@@ -116,8 +116,8 @@ highlights = [
 [[experience]]
 company = "Prospa"
 role = "Software Development Engineer in Test"
-start_date = "2019-05"
-end_date = "2020-01"
+start_date = "May 2019"
+end_date = "Jan 2020"
 location = "Sydney, Australia"
 summary = "Built reusable automation frameworks and enabled CI/CD-based quality gates."
 highlights = [
@@ -129,8 +129,8 @@ highlights = [
 [[experience]]
 company = "Medical Director"
 role = "Software Engineer"
-start_date = "2017-10"
-end_date = "2019-04"
+start_date = "Oct 2017"
+end_date = "Apr 2019"
 location = "Sydney, Australia"
 summary = "Worked across full-stack development, TDD, and CI/CD automation in agile teams."
 highlights = [
@@ -142,8 +142,8 @@ highlights = [
 [[experience]]
 company = "Medical Director"
 role = "Graduate / Junior Software Engineer"
-start_date = "2016-04"
-end_date = "2017-09"
+start_date = "Apr 2016"
+end_date = "Sep 2017"
 location = "Sydney, Australia"
 summary = "Joined through a graduate engineering program with rotations across software development and test automation."
 highlights = [

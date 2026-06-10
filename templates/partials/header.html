@@ -9,7 +9,7 @@
     </h2>
     <p class="text-sm opacity-80 max-w-lg">{{ resume.basics.summary }}</p>
   </div>
-  <div class="flex flex-col items-end">
+  <div class="flex flex-col items-start md:items-end">
     {% if resume.basics.email %}
     <div class="flex items-center mb-2">
       <i class="fas fa-envelope mr-2 text-[var(--primary)]"></i>
@@ -30,5 +30,11 @@
       <span class="text-sm"><a href="{{ link.url }}">{{ link.label }}</a></span>
     </div>
     {% endfor %}
+    <div class="flex items-center mb-2">
+      <i class="fas fa-file-pdf mr-2 text-[var(--primary)]"></i>
+      <span class="text-sm"
+        ><a href="{{ get_url(path='@/resume-print.md') }}">Resume (PDF)</a></span
+      >
+    </div>
   </div>
 </header>
