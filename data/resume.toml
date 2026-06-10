@@ -1,7 +1,7 @@
 [basics]
 name = "Ben Quinteros"
 headline = "Senior Software Engineer"
-location = "Australia"
+location = "Sydney, Australia"
 website = "https://benquinteros.com"
 email = "hi@benquinteros.com"
 summary = "Full-stack engineer with a deep quality-engineering and reliability background. I build primarily with AI coding agents these days, and hold that work to the same bar as anything else I ship: tests, types, review, and observability."
@@ -15,7 +15,7 @@ role = "Senior Software Engineer"
 start_date = "2026-03"
 end_date = "Present"
 location = "Sydney, NSW, Australia"
-summary = "Transitioned into a fullstack engineering role on the Customer Portals Team, owning feature delivery and platform observability across customer-facing systems."
+summary = "Own feature delivery and platform observability across customer-facing insurance and financial services portals in a high-availability environment."
 highlights = [
   "Deliver most feature work with coding agents (Claude Code, Codex, GitHub Copilot), applying established planning and implementation patterns while managing context quality and model cost",
   "Hold AI-written code to the same bar as any other change (TDD, type and lint gates in CI, code review), using MCP integrations to give agents the project context needed for planning and implementation",
@@ -32,13 +32,14 @@ role = "Senior Software QA Engineer"
 start_date = "2025-03"
 end_date = "2026-02"
 location = "Sydney, NSW, Australia"
-summary = "Led modern QA automation strategy and framework rollout using Playwright and CI/CD integration."
+summary = "Led QA automation strategy and framework rollout using Playwright and CI/CD integration."
 highlights = [
   "Designed and implemented a Playwright end-to-end testing framework replacing legacy Selenium",
   "Integrated test framework into Azure DevOps pipelines for release-gated automation",
   "Built custom Teams notifications and observability dashboards for test outcomes",
   "Implemented visual regression testing for large-scale dynamic PDF rendering",
   "Built API automation using generated OpenAPI clients to improve onboarding",
+  "Authored RFCs and engineering proposals covering continuous delivery, canary deployments, and test observability",
   "Led workshops and pair-programming sessions to uplift QA and engineering teams"
 ]
 
@@ -50,26 +51,13 @@ end_date = "2025-01"
 location = "Sydney, NSW, Australia"
 summary = "Led company-wide automation strategy, roadmap, and platform implementation."
 highlights = [
-  "Defined organizational test automation strategy and rollout roadmap",
+  "Defined organisational test automation strategy and rollout roadmap",
   "Built Playwright E2E and Postman/Newman API frameworks with CI/CD integration",
   "Drove shift-left testing and improved application testability with developer collaboration",
   "Migrated legacy Cypress/Selenium suites and implemented infrastructure automation",
-  "Embedded observability and business metrics for ROI and quality reporting"
+  "Embedded observability and business metrics for ROI and quality reporting",
+  "Mentored and upskilled manual testers into automation engineers through workshops, pairing, and documentation"
 ]
-
-[[education]]
-institution = "Western Sydney University"
-study_type = "Bachelor"
-area = "Information and Communications Technology"
-start_date = "2013"
-end_date = "2016"
-
-[[education]]
-institution = "Austin Peay State University"
-study_type = "Bachelor"
-area = "Computer Science"
-start_date = "2015"
-end_date = "2015"
 
 [[experience]]
 company = "DroneShield"
@@ -92,9 +80,10 @@ end_date = "2023-09"
 location = "Sydney, NSW, Australia"
 summary = "Led reliability initiatives across cloud-native services with incident management ownership."
 highlights = [
-  "Led incident management and improved operational playbooks",
-  "Implemented SLO and alerting improvements",
-  "Drove service-catalog and reliability scorecard improvements"
+  "Led high-severity incidents through investigation, mitigation, and resolution, and facilitated incident-management training across teams",
+  "Implemented SLOs and tuned alerting strategies to reduce operational noise",
+  "Drove service-catalog ownership models, reliability scorecards, and service tiering",
+  "Built automation and tooling in Go, Python, Bash, and Terraform across AWS and Kubernetes"
 ]
 
 [[experience]]
@@ -105,9 +94,10 @@ end_date = "2023-01"
 location = "Sydney, NSW, Australia"
 summary = "Built multi-language quality platforms for functional, contract, visual, and load testing."
 highlights = [
-  "Rolled out visual regression and contract testing across multiple services",
-  "Built performance and traffic-replay load testing solutions",
-  "Delivered training, demos, and architecture documentation across teams"
+  "Implemented Pact contract testing across more than a dozen services in multiple languages",
+  "Rolled out visual regression testing, reducing customer-reported UI defects and enabling safer CI/CD deployments",
+  "Built k6 performance and load testing for experimentation and production traffic replay",
+  "Delivered company-wide training, demos, and framework handovers; received the company-wide 'Hidden Value' award"
 ]
 
 [[experience]]
@@ -151,31 +141,36 @@ highlights = [
 
 [[experience]]
 company = "Medical Director"
-role = "Junior Software Engineer"
-start_date = "2016-10"
+role = "Graduate / Junior Software Engineer"
+start_date = "2016-04"
 end_date = "2017-09"
 location = "Sydney, Australia"
-summary = "Contributed to product delivery and engineering quality improvements."
-highlights = []
-
-[[experience]]
-company = "Medical Director"
-role = "Graduate Software Engineer"
-start_date = "2016-04"
-end_date = "2016-09"
-location = "Sydney, Australia"
-summary = "Completed rotations in software development and test automation."
+summary = "Joined through a graduate engineering program with rotations across software development and test automation."
 highlights = [
   "Built feature automation and dashboard tooling",
-  "Delivered bug fixes and enhancements across products"
+  "Delivered bug fixes and enhancements across frontend and backend systems"
 ]
+
+[[education]]
+institution = "Western Sydney University"
+study_type = "Bachelor"
+area = "Information and Communications Technology"
+start_date = "2013"
+end_date = "2016"
+
+[[education]]
+institution = "Austin Peay State University"
+study_type = "Bachelor"
+area = "Computer Science"
+start_date = "2015"
+end_date = "2015"
 
 [[skills]]
 name = "AI Tooling"
-keywords = ["Claude Code", "Codex", "GitHub Copilot", "MCP", "Agent skills"]
+keywords = ["Claude Code", "Codex", "GitHub Copilot", "MCP", "Agent Skills"]
 
 [[skills]]
-name = "Languages"
+name = "Programming Languages"
 keywords = ["TypeScript", "JavaScript", "C#", "Python", "Go", "SQL", "PowerShell", "Bash"]
 
 [[skills]]
@@ -198,11 +193,6 @@ title = "Dean's Merit List"
 
 [[awards]]
 title = "Australian Government Scholarship"
-
-[[certifications]]
-title = "Bachelor of Information and Communications Technology"
-issuer = "Western Sydney University"
-date = "2016"
 
 [[projects]]
 name = "Angla"
