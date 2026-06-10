@@ -30,5 +30,11 @@
       <span class="text-sm"><a href="{{ link.url }}">{{ link.label }}</a></span>
     </div>
     {% endfor %}
+    <div class="flex items-center mb-2">
+      <i class="fas fa-file-pdf mr-2 text-[var(--primary)]"></i>
+      <span class="text-sm"
+        ><a href="{{ get_url(path='@/resume-print.md') }}">Resume (PDF)</a></span
+      >
+    </div>
   </div>
 </header>
