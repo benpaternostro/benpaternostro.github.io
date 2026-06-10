@@ -4,7 +4,7 @@ headline = "Senior Software Engineer"
 location = "Australia"
 website = "https://benquinteros.com"
 email = "hi@benquinteros.com"
-summary = "Fullstack engineer who brings a quality engineering mindset to product delivery from CI pipelines and observability platforms to end-to-end automation across fintech and SaaS."
+summary = "Full-stack engineer with a deep quality-engineering and reliability background. I build primarily with AI coding agents these days, and hold that work to the same bar as anything else I ship: tests, types, review, and observability."
 [[links]]
 label = "LinkedIn"
 url = "https://www.linkedin.com/in/benjaminquinteros"
@@ -17,7 +17,9 @@ end_date = "Present"
 location = "Sydney, NSW, Australia"
 summary = "Transitioned into a fullstack engineering role on the Customer Portals Team, owning feature delivery and platform observability across customer-facing systems."
 highlights = [
-  "Led adoption of OpenTelemetry and OpenFeature (with LaunchDarkly), enabling end-to-end observability and progressive feature delivery",
+  "Deliver most feature work with coding agents (Claude Code, Codex, GitHub Copilot), applying established planning and implementation patterns while managing context quality and model cost",
+  "Hold AI-written code to the same bar as any other change (TDD, type and lint gates in CI, code review), using MCP integrations to give agents the project context needed for planning and implementation",
+  "Led adoption of OpenTelemetry, OpenFeature (with LaunchDarkly), and Storybook, enabling end-to-end observability, progressive feature delivery, and component development with a visual-regression testing layer",
   "Consolidated observability into Datadog (logs, metrics, traces, RUM) for unified system visibility",
   "Improved the E2E framework to run in ~2 minutes by spinning up ephemeral environments in CI, bypassing third-party auth, caching sessions, and parallelising test execution",
   "Built a self-service test data platform for pre-prod, eliminating manual DB access and enabling cross-functional teams to use realistic scenarios",
@@ -169,23 +171,23 @@ highlights = [
 ]
 
 [[skills]]
-name = "Top Skills"
-keywords = ["Test Automation", "Test Driven Development", "DevOps"]
+name = "AI Tooling"
+keywords = ["Claude Code", "Codex", "GitHub Copilot", "MCP", "Agent skills"]
 
 [[skills]]
-name = "Automation & QA"
-keywords = ["Playwright", "Selenium", "Cypress", "Postman", "Newman", "Visual Regression", "Contract Testing"]
+name = "Languages"
+keywords = ["TypeScript", "JavaScript", "C#", "Python", "Go", "SQL", "PowerShell", "Bash"]
 
 [[skills]]
 name = "Cloud & DevOps"
 keywords = ["AWS", "Azure", "Kubernetes", "Terraform", "Docker", "Azure DevOps", "Buildkite", "Octopus Deploy"]
 
 [[skills]]
-name = "Languages & Scripting"
-keywords = ["TypeScript", "JavaScript", "C#", "Python", "Go", "SQL", "PowerShell", "Bash", "YAML"]
+name = "Quality & Observability"
+keywords = ["Playwright", "Test-Driven Development", "Visual Regression", "Contract Testing", "Datadog", "OpenTelemetry", "RUM"]
 
 [[skills]]
-name = "Languages Spoken"
+name = "Spoken Languages"
 keywords = ["Spanish (Elementary)"]
 
 [[awards]]
