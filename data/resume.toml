@@ -22,7 +22,7 @@ highlights = [
   "Led adoption of OpenTelemetry, OpenFeature (with LaunchDarkly), and Storybook, enabling end-to-end observability, progressive feature delivery, and component development with a visual-regression testing layer",
   "Consolidated observability into Datadog (logs, metrics, traces, RUM) for unified system visibility",
   "Improved the E2E framework to run in ~2 minutes by spinning up ephemeral environments in CI, bypassing third-party auth, caching sessions, and parallelising test execution",
-  "Built a test-data API integrated into the pre-prod login flow that finds customer records matching selected criteria, replacing manual DB access and becoming the organisation's default entry point to test environments",
+  "Built a self-service test-data API into the pre-prod login flow, replacing manual DB access and becoming the organisation's default entry point to test environments",
   "Moved the team to routine business-hours deployments, making out-of-hours releases and manual production validation the exception rather than the norm"
 ]
 
