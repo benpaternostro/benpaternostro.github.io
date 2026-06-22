@@ -3,7 +3,7 @@ name = "Ben Quinteros"
 headline = "Senior Software Engineer"
 location = "Sydney, Australia"
 website = "https://benquinteros.com"
-email = "hi@benquinteros.com"
+email = "contact@benquinteros.com"
 summary = "Full-stack engineer with a deep quality-engineering and reliability background. I build primarily with AI coding agents these days, and hold that work to the same bar as anything else I ship: tests, types, review, and observability."
 [[links]]
 label = "LinkedIn"
