@@ -1,4 +1,4 @@
-# benquinteros.com — Zola Resume & Portfolio
+# benpaternostro.com — Zola Resume & Portfolio
 
 Minimal personal site built with Zola and deployed to GitHub Pages.
 
@@ -65,5 +65,5 @@ git submodule update --init --recursive
 
 ## Domain
 
-- `base_url` in `config.toml` is set to `https://benquinteros.com`
-- `static/CNAME` contains `benquinteros.com`
+- `base_url` in `config.toml` is set to `https://benpaternostro.com`
+- `static/CNAME` contains `benpaternostro.com`

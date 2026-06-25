@@ -1,9 +1,9 @@
-base_url = "https://benquinteros.com"
-title = "Ben Quinteros"
+base_url = "https://benpaternostro.com"
+title = "Ben Paternostro"
 description = "Resume and portfolio"
 default_language = "en"
 theme = "BelResume"
 build_search_index = false
 
 [extra]
-site_name = "Ben Quinteros"
+site_name = "Ben Paternostro"

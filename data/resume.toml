@@ -1,13 +1,13 @@
 [basics]
-name = "Ben Quinteros"
+name = "Ben Paternostro"
 headline = "Senior Software Engineer"
 location = "Sydney, Australia"
-website = "https://benquinteros.com"
-email = "contact@benquinteros.com"
+website = "https://benpaternostro.com"
+email = "contact@benpaternostro.com"
 summary = "Full-stack engineer with a deep quality-engineering and reliability background. I build primarily with AI coding agents these days, and hold that work to the same bar as anything else I ship: tests, types, review, and observability."
 [[links]]
 label = "LinkedIn"
-url = "https://www.linkedin.com/in/benjaminquinteros"
+url = "https://www.linkedin.com/in/benjaminpaternostro"
 
 [[experience]]
 company = "Greenstone Financial Services"
