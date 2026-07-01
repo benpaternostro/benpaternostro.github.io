@@ -7,7 +7,7 @@
 }
 
 :root {
-  color-scheme: light dark;
+  color-scheme: light;
 
   --bg: #ffffff;
   --text: #111111;
@@ -24,6 +24,8 @@
 }
 
 :root[data-theme="dark"] {
+  color-scheme: dark;
+
   --bg: #0d0d0f;
   --text: #ededed;
   --text-2: #b4b4b4;
@@ -31,18 +33,6 @@
   --rule: #262629;
   --rule-strong: #ededed;
   --accent: #5b78ff;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --bg: #0d0d0f;
-    --text: #ededed;
-    --text-2: #b4b4b4;
-    --text-3: #8a8a8a;
-    --rule: #262629;
-    --rule-strong: #ededed;
-    --accent: #5b78ff;
-  }
 }
 
 * {
@@ -175,15 +165,6 @@ button:focus-visible {
 }
 :root[data-theme="dark"] .theme-toggle .moon {
   display: none;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) .theme-toggle .sun {
-    display: block;
-  }
-  :root:not([data-theme="light"]) .theme-toggle .moon {
-    display: none;
-  }
 }
 
 /* Hero */

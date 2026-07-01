@@ -19,8 +19,8 @@ redundancy between the home page and the `/resume/` page.
 - **Typography:** Inter (self-hosted variable `woff2`) for display/body;
   system monospace stack for dates, labels, and section numbers. Two weights
   (regular + medium). Sentence case throughout.
-- **Color mode:** light and dark palettes; follow the OS `prefers-color-scheme`
-  by default, with a small toggle that persists an override in `localStorage`.
+- **Color mode:** light and dark palettes; light is the default, with a small
+  toggle that switches to dark and persists the choice in `localStorage`.
 - **Implementation:** hand-written CSS with CSS custom properties. Remove the
   Tailwind CDN, Font Awesome, and the `BelResume` theme entirely.
 
@@ -78,7 +78,7 @@ redundancy between the home page and the `/resume/` page.
 
 ## Light/dark toggle
 
-- Default follows `prefers-color-scheme`.
+- Defaults to light; dark applies only when explicitly chosen.
 - Toggle writes an explicit choice to `localStorage`, applied as `[data-theme]`
   on `<html>`.
 - A tiny inline `<head>` script sets the theme before first paint to avoid a

@@ -40,8 +40,8 @@ Generated files are output to `public/` (ignored by git).
   stylesheet at `static/styles.css` using CSS custom properties.
 - Swiss-typographic single page: a `data/resume.toml`-driven hero plus numbered
   sections (experience, skills, projects, education, awards).
-- Light and dark palettes follow `prefers-color-scheme`, with a toggle that
-  persists an override in `localStorage`.
+- Defaults to a light palette; a toggle switches to dark and persists the
+  choice in `localStorage`.
 - Typography is self-hosted Inter (`static/fonts/inter-latin-wght-normal.woff2`)
   with a system monospace stack for dates and labels.
 - Design decisions are recorded in
