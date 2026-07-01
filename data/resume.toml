@@ -4,7 +4,7 @@ headline = "Senior Software Engineer"
 location = "Sydney, Australia"
 website = "https://benpaternostro.com"
 email = "contact@benpaternostro.com"
-summary = "Full-stack engineer with a deep quality-engineering and reliability background. I build primarily with AI coding agents these days, and hold that work to the same bar as anything else I ship: tests, types, review, and observability."
+summary = "Full-stack engineer with deep roots in quality and reliability engineering, now building primarily with AI coding agents."
 [[links]]
 label = "LinkedIn"
 url = "https://www.linkedin.com/in/benjaminpaternostro"
@@ -18,7 +18,7 @@ location = "Sydney, NSW, Australia"
 summary = "Own feature delivery and platform observability across customer-facing insurance and financial services portals serving tens of thousands of users."
 highlights = [
   "Deliver most feature work with coding agents (Claude Code, Codex, GitHub Copilot), applying established planning and implementation patterns while managing context quality and model cost",
-  "Hold AI-written code to the same bar as any other change (TDD, type and lint gates in CI, code review), using MCP integrations to give agents the project context needed for planning and implementation",
+  "Hold AI-written code to the same bar as any other change (TDD, review, observability), using MCP integrations to give agents the project context needed for planning and implementation",
   "Led adoption of OpenTelemetry, OpenFeature (with LaunchDarkly), and Storybook, enabling end-to-end observability, progressive feature delivery, and component development with a visual-regression testing layer",
   "Consolidated observability into Datadog (logs, metrics, traces, RUM) for unified system visibility",
   "Improved the E2E framework to run in ~2 minutes by spinning up ephemeral environments in CI, bypassing third-party auth, caching sessions, and parallelising test execution",

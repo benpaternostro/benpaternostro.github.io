@@ -1,14 +1,14 @@
 {% set resume = load_data(path="data/resume.toml") %}
-<section class="card p-6 rounded-xl bg-[var(--card)] shadow-sm">
-  <h3 class="text-2xl font-semibold mb-4 border-b pb-2 border-[var(--primary)]">
-    Skills
-  </h3>
-  <div class="space-y-4">
-    {% for skill in resume.skills %} {% if skill.name != "Spoken Languages" %}
-    <div>
-      <h4 class="font-semibold mb-1">{{ skill.name }}</h4>
-      <p class="text-sm opacity-90">{{ skill.keywords | join(sep=", ") }}</p>
+<section class="section" aria-labelledby="skills-label">
+  <h2 class="section-label" id="skills-label">
+    <span class="section-num">02</span> Skills
+  </h2>
+  <dl class="rows">
+    {% for skill in resume.skills %}
+    <div class="row">
+      <dt class="row-label">{{ skill.name }}</dt>
+      <dd class="row-value">{{ skill.keywords | join(sep=", ") }}</dd>
     </div>
-    {% endif %} {% endfor %}
-  </div>
+    {% endfor %}
+  </dl>
 </section>
