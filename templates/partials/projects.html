@@ -1,15 +1,16 @@
 {% set resume = load_data(path="data/resume.toml") %}
-<section class="card p-6 rounded-xl bg-[var(--card)] shadow-sm">
-  <h3 class="text-2xl font-semibold mb-4 border-b pb-2 border-[var(--primary)]">
-    Projects
-  </h3>
-  <div class="space-y-4">
+<section class="section" aria-labelledby="projects-label">
+  <h2 class="section-label" id="projects-label">
+    <span class="section-num">03</span> Projects
+  </h2>
+  <dl class="rows rows--projects">
     {% for project in resume.projects %}
-    <div>
-      <h4 class="font-semibold">{{ project.name }}</h4>
-      <p class="text-sm opacity-90">{{ project.summary }}</p>
-      <a class="text-sm text-[var(--primary)]" href="{{ project.url }}">View</a>
+    <div class="row">
+      <dt class="row-label">
+        {% if project.url %}<a href="{{ project.url }}">{{ project.name }}</a>{% else %}{{ project.name }}{% endif %}
+      </dt>
+      <dd class="row-value">{{ project.summary }}</dd>
     </div>
     {% endfor %}
-  </div>
+  </dl>
 </section>

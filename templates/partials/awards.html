@@ -1,15 +1,13 @@
 {% set resume = load_data(path="data/resume.toml") %}
-<section class="card p-6 rounded-xl bg-[var(--card)] shadow-sm">
-  <h3 class="text-2xl font-semibold mb-4 border-b pb-2 border-[var(--primary)]">
-    Awards
-  </h3>
-  {% if resume.awards and resume.awards | length > 0 %}
-  <ul class="text-sm list-disc list-inside space-y-1">
+{% if resume.awards and resume.awards | length > 0 %}
+<section class="section" aria-labelledby="awards-label">
+  <h2 class="section-label" id="awards-label">
+    <span class="section-num">05</span> Honors &amp; awards
+  </h2>
+  <ul class="award-list">
     {% for award in resume.awards %}
     <li>{{ award.title }}</li>
     {% endfor %}
   </ul>
-  {% else %}
-  <p class="text-sm opacity-80">No awards listed.</p>
-  {% endif %}
 </section>
+{% endif %}

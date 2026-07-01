@@ -12,10 +12,9 @@ Minimal personal site built with Zola and deployed to GitHub Pages.
 ## Project Structure
 
 - `content/` markdown pages
-- `templates/` Tera templates
+- `templates/` Tera templates (`index.html` single-page resume, `partials/`, `resume-print.html`)
 - `data/resume.toml` source of truth for resume content
-- `static/` static assets and `CNAME`
-- `themes/BelResume/` vendored upstream theme source
+- `static/` static assets, hand-written `styles.css`, self-hosted `fonts/`, and `CNAME`
 - `.github/workflows/deploy.yml` deployment workflow
 
 ## Local Development
@@ -35,25 +34,25 @@ zola build
 
 Generated files are output to `public/` (ignored by git).
 
-## Theme Management
+## Design
 
-- Upstream theme: `https://github.com/cx48/BelResume` (MIT)
-- Current approach: vendored copy in `themes/BelResume` for reproducible CI builds
-- Zola best practice (Context7 docs): either vendored theme folder **or** git submodule are valid
-- If updating manually, replace `themes/BelResume` from upstream and run `zola check`
-- If switching to submodule later:
-
-```bash
-git submodule add https://github.com/cx48/BelResume themes/BelResume
-git submodule update --init --recursive
-```
+- No third-party theme or CSS framework. Styling is a single hand-written
+  stylesheet at `static/styles.css` using CSS custom properties.
+- Swiss-typographic single page: a `data/resume.toml`-driven hero plus numbered
+  sections (experience, skills, projects, education, awards).
+- Light and dark palettes follow `prefers-color-scheme`, with a toggle that
+  persists an override in `localStorage`.
+- Typography is self-hosted Inter (`static/fonts/inter-latin-wght-normal.woff2`)
+  with a system monospace stack for dates and labels.
+- Design decisions are recorded in
+  `docs/superpowers/specs/2026-07-01-resume-redesign-design.md`.
 
 ## Resume Update Workflow (PDF -> TOML)
 
 1. Upload your latest resume PDF to Copilot.
 2. Ask Copilot to return content in this repository's `data/resume.toml` schema.
 3. Replace/update `data/resume.toml`.
-4. Run `zola serve` and verify `/resume/`.
+4. Run `zola serve` and verify `/` (and the print view at `/resume/print`).
 5. Commit and push to `main`.
 
 ## Deployment

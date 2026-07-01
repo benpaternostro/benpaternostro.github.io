@@ -2,7 +2,6 @@ base_url = "https://benpaternostro.com"
 title = "Ben Paternostro"
 description = "Resume and portfolio"
 default_language = "en"
-theme = "BelResume"
 build_search_index = false
 
 [extra]
