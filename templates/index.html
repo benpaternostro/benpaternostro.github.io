@@ -5,10 +5,18 @@
 
 {% block content %}
 {% include "partials/hero.html" %}
-{% include "partials/selected-record.html" %}
-{% include "partials/practice.html" %}
-{% include "partials/career-index.html" %}
-{% include "partials/projects.html" %}
-{% include "partials/skills.html" %}
-{% include "partials/background.html" %}
+<div class="chronicle-body" id="career-index">
+  {% include "partials/career-index.html" %}
+  <aside class="chronicle-aside" aria-label="About and independent work">
+    {% include "partials/projects.html" %}
+    <div>
+      {% include "partials/skills.html" %}
+      {% include "partials/background.html" %}
+    </div>
+  </aside>
+</div>
+<section class="chronicle-contact" id="contact" aria-labelledby="contact-heading">
+  <h2 id="contact-heading">Contact</h2>
+  <a class="link" href="mailto:{{ resume.basics.email }}">{{ resume.basics.email }} <svg aria-hidden="true"><use href="#arrow" /></svg></a>
+</section>
 {% endblock content %}

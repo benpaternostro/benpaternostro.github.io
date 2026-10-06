@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{% block title %}{{ config.title }}{% endblock title %}</title>
     <meta name="description" content="{% block description %}{{ config.description }}{% endblock description %}" />
-    <meta name="theme-color" content="#F3F0E8" id="theme-color-meta" />
+    <meta name="theme-color" content="#f3e7e0" id="theme-color-meta" />
     <link
       rel="preload"
-      href="{{ get_url(path='fonts/inter-latin-wght-normal.woff2') }}"
+      href="{{ get_url(path='fonts/bricolage-grotesque.ttf') }}"
       as="font"
-      type="font/woff2"
+      type="font/ttf"
       crossorigin
     />
     <link
@@ -34,26 +34,24 @@
       })();
     </script>
   </head>
-  <body>
+  <body class="chronicle">
     {% set resume = load_data(path="data/resume.toml") %}
+    <svg class="symbols" aria-hidden="true"><symbol id="arrow" viewBox="0 0 24 24"><path d="M5 19 19 5M5 5h14v14" /></symbol></svg>
     <a class="skip" href="#main">Skip to content</a>
 
     <header class="topbar">
       <div class="container topbar-inner">
-        <a class="brand" href="{{ get_url(path='@/_index.md') }}">{{ resume.basics.name }}</a>
         <nav class="topnav" aria-label="Primary">
-          <a class="nav-section-link" href="#selected-record">Selected Record</a>
-          <a class="nav-section-link" href="#practice">Practice</a>
-          <a class="nav-section-link" href="#career-index">Career Index</a>
-          <a href="{{ get_url(path='@/resume-print.md') }}">Résumé PDF</a>
-          {% for link in resume.links %}
-          <a href="{{ link.url }}">{{ link.label }}</a>
-          {% endfor %}
+          <a href="#career-index">Career</a>
+          {% if resume.projects %}<a href="#projects">Projects</a>{% endif %}
+          <a href="{{ get_url(path='@/resume-print.md') }}">Résumé</a>
+          <a href="#contact">Contact</a>
           <button
             type="button"
             class="theme-toggle"
             id="theme-toggle"
-            aria-label="Switch color theme"
+            aria-label="Switch to dark theme"
+            hidden
           >
             <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
               <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z" />
@@ -73,14 +71,13 @@
 
     <footer class="site-footer">
       <div class="container">
-        <p>{{ resume.basics.name }} &nbsp;·&nbsp; {{ resume.basics.location }}</p>
-        <p>
-          {% if resume.basics.email %}<a href="mailto:{{ resume.basics.email }}">Email</a>&nbsp;·&nbsp; {% endif %}
+        <p>{{ resume.basics.name }} · {{ resume.basics.location }}</p>
+        <nav aria-label="More links">
           {% for link in resume.links %}
-          <a href="{{ link.url }}">{{ link.label }}</a>&nbsp;·&nbsp;
+          <a href="{{ link.url }}">{{ link.label }}</a>
           {% endfor %}
-          <a href="{{ get_url(path='@/resume-print.md') }}">Résumé PDF</a>
-        </p>
+          <a href="{{ get_url(path='@/resume-print.md') }}">Résumé</a>
+        </nav>
       </div>
     </footer>
 
@@ -99,7 +96,7 @@
             "aria-label",
             dark ? "Switch to light theme" : "Switch to dark theme"
           );
-          if (meta) meta.setAttribute("content", dark ? "#191815" : "#F3F0E8");
+          if (meta) meta.setAttribute("content", dark ? "#241e24" : "#f3e7e0");
         }
         btn.addEventListener("click", function () {
           var next = effective() === "dark" ? "light" : "dark";
@@ -109,6 +106,7 @@
           } catch (e) {}
           sync();
         });
+        btn.hidden = false;
         sync();
       })();
     </script>

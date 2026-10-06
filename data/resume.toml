@@ -31,8 +31,8 @@ location = "Sydney, NSW, Australia"
 summary = "Own feature delivery and platform observability across customer-facing insurance and financial services portals serving tens of thousands of users."
 featured = true
 featured_highlights = [
-  "Deliver most feature work with coding agents, applying established planning and implementation patterns while managing context quality and model cost",
-  "Led adoption of OpenTelemetry, OpenFeature, and Storybook for observability, progressive delivery, and component development"
+  "Led adoption of OpenTelemetry, OpenFeature, and Storybook for observability, progressive delivery, and component development",
+  "Deliver most feature work with coding agents, applying established planning and implementation patterns while managing context quality and model cost"
 ]
 evidence = [
   { title = "~2-minute E2E feedback", detail = "Ephemeral CI environments, cached sessions, and parallel execution shortened the end-to-end feedback loop." },
@@ -40,9 +40,9 @@ evidence = [
   { title = "Unified production visibility", detail = "Logs, metrics, traces, and real-user monitoring were consolidated in Datadog." }
 ]
 highlights = [
+  "Led adoption of OpenTelemetry, OpenFeature (with LaunchDarkly), and Storybook, enabling end-to-end observability, progressive feature delivery, and component development with a visual-regression testing layer",
   "Deliver most feature work with coding agents (Claude Code, Codex, GitHub Copilot), applying established planning and implementation patterns while managing context quality and model cost",
   "Hold AI-written code to the same bar as any other change (TDD, review, observability), using MCP integrations to give agents the project context needed for planning and implementation",
-  "Led adoption of OpenTelemetry, OpenFeature (with LaunchDarkly), and Storybook, enabling end-to-end observability, progressive feature delivery, and component development with a visual-regression testing layer",
   "Consolidated observability into Datadog (logs, metrics, traces, RUM) for unified system visibility",
   "Improved the E2E framework to run in ~2 minutes by spinning up ephemeral environments in CI, bypassing third-party auth, caching sessions, and parallelising test execution",
   "Built a self-service test-data API into the pre-prod login flow, replacing manual DB access and becoming the organisation's default entry point to test environments",
@@ -109,6 +109,8 @@ highlights = [
 [[experience]]
 company = "Rokt"
 role = "Senior Site Reliability Engineer"
+timeline_group = "rokt-2020"
+timeline_summary = "Built quality platforms across a 100+ service ecosystem, then led reliability initiatives across cloud-native services."
 start_date = "Feb 2023"
 end_date = "Sep 2023"
 location = "Sydney, NSW, Australia"
@@ -125,6 +127,7 @@ highlights = [
 [[experience]]
 company = "Rokt"
 role = "Senior Software Engineer (QA)"
+timeline_group = "rokt-2020"
 start_date = "May 2021"
 end_date = "Jan 2023"
 location = "Sydney, NSW, Australia"
@@ -140,6 +143,7 @@ highlights = [
 [[experience]]
 company = "Rokt"
 role = "Software Engineer (QA)"
+timeline_group = "rokt-2020"
 start_date = "Feb 2020"
 end_date = "May 2021"
 location = "Sydney, Australia"
@@ -168,6 +172,8 @@ highlights = [
 [[experience]]
 company = "Medical Director"
 role = "Software Engineer"
+timeline_group = "medical-director-2016"
+timeline_summary = "Full-stack development and test automation, from the graduate engineering program through to Software Engineer."
 start_date = "Oct 2017"
 end_date = "Apr 2019"
 location = "Sydney, Australia"
@@ -182,6 +188,7 @@ highlights = [
 [[experience]]
 company = "Medical Director"
 role = "Graduate / Junior Software Engineer"
+timeline_group = "medical-director-2016"
 start_date = "Apr 2016"
 end_date = "Sep 2017"
 location = "Sydney, Australia"
@@ -239,3 +246,5 @@ title = "Australian Government Scholarship"
 name = "Angla"
 summary = "A fishing weather and Instagram-style social app."
 url = "https://angla.xyz/"
+image = "assets/angla-app.jpg"
+image_alt = "Angla's example dashboard showing a fishing score, weather readings, and hourly conditions using sample data."

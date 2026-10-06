@@ -1,0 +1,169 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-06T02:53:21Z",
+  "title": "Design System: Chronicle",
+  "extensions": {
+    "colorMeta": {
+      "paper": {
+        "role": "neutral",
+        "displayName": "Rose paper"
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Wine ink"
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "Muted wine"
+      },
+      "rule": {
+        "role": "neutral",
+        "displayName": "Rose rule"
+      },
+      "accent": {
+        "role": "primary",
+        "displayName": "Wine accent"
+      },
+      "panel": {
+        "role": "neutral",
+        "displayName": "Rose hover surface"
+      },
+      "dark-paper": {
+        "role": "neutral",
+        "displayName": "Deep plum paper"
+      },
+      "dark-ink": {
+        "role": "neutral",
+        "displayName": "Pale rose ink"
+      },
+      "dark-muted": {
+        "role": "neutral",
+        "displayName": "Muted rose"
+      },
+      "dark-rule": {
+        "role": "neutral",
+        "displayName": "Plum rule"
+      },
+      "dark-accent": {
+        "role": "primary",
+        "displayName": "Rose accent"
+      },
+      "dark-panel": {
+        "role": "neutral",
+        "displayName": "Plum hover surface"
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Identity",
+        "purpose": "Source Serif 4, static/fonts/source-serif-4-latin-wght-normal.woff2; variable weight 200–900, preloaded locally. Desktop reaches 90px; 57px at 760px and 54px at 520px."
+      },
+      "headline": {
+        "displayName": "Timeline company",
+        "purpose": "Source Serif 4; 34px desktop, 30px at 1000px, 29px at 520px. The static detector’s flat-hierarchy warning did not resolve the absolute linked stylesheet; rendered hierarchy is confirmed."
+      },
+      "body": {
+        "displayName": "Reading base",
+        "purpose": "Source Serif 4, 16px/1.55. Detail text uses 16px/1.7; 15px on phones."
+      },
+      "description": {
+        "displayName": "Visible career summary",
+        "purpose": "Source Serif 4; maximum 64ch, 18px desktop and 16px at 520px."
+      },
+      "label": {
+        "displayName": "Metadata and controls",
+        "purpose": "Bricolage, static/fonts/bricolage-grotesque.ttf; variable weight 200–800, preloaded locally. Disclosure/navigation labels use this local sans stack."
+      },
+      "date": {
+        "displayName": "Timeline year",
+        "purpose": "Bricolage with tabular numerals; 29px desktop, 25px at 1000px, 20px at 520px. Supporting dates use 12px desktop and 11px on phones."
+      }
+    },
+    "shadows": [],
+    "motion": [
+      {
+        "name": "ease",
+        "value": "cubic-bezier(.16, 1, .3, 1)",
+        "purpose": "Shared purposeful movement easing."
+      },
+      {
+        "name": "details-layout",
+        "value": "block-size 420ms var(--ease), opacity 300ms ease-out, content-visibility 420ms allow-discrete",
+        "purpose": "Only inside @supports (interpolate-size: allow-keywords) and selector(::details-content); native disclosures remain functional without it."
+      },
+      {
+        "name": "state-feedback",
+        "value": "transform 250ms var(--ease)",
+        "purpose": "Plus/minus indicators rotate; link arrows move 2px right/up on hover."
+      },
+      {
+        "name": "project-image",
+        "value": "transform 500ms var(--ease)",
+        "purpose": "Angla app screenshot scales to 1.035 only on fine-pointer hover."
+      },
+      {
+        "name": "theme",
+        "value": "background-color 220ms ease, color 220ms ease",
+        "purpose": "Body theme change. Theme button hover uses a separate 150ms background transition."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "prefers-reduced-motion: reduce",
+        "purpose": "Disables animation, transitions, smooth scrolling, and image/arrow spatial hover effects. Source-verified fallback; motion browser evidence is Chromium only."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "compact-max",
+        "value": "1000px"
+      },
+      {
+        "name": "tablet-max",
+        "value": "760px"
+      },
+      {
+        "name": "phone-max",
+        "value": "520px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Dated career entry",
+      "kind": "custom",
+      "description": "Seven rows retain all ten canonical roles. Date/column/gap/axis values are 95/50/119px on desktop, 70/32/86px at 1000px, 80/38/95px at 760px, and 64/36/80px at 520px. Representative desktop excerpt.",
+      "html": "<ol class=\"ds-timeline\" aria-label=\"Career, most recent first\"><li><div class=\"ds-date\"><time datetime=\"2026\">2026</time><span>Mar 2026<br>Present</span></div><article><h2>Greenstone Financial Services</h2><p class=\"ds-role\">Senior Software Engineer</p><p class=\"ds-description\">Own feature delivery and platform observability across customer-facing insurance and financial services portals serving tens of thousands of users.</p></article></li></ol>",
+      "css": ".ds-timeline{list-style:none;padding:0;margin:0;position:relative;background:var(--paper,#f3e7e0);color:var(--ink,#49313e);font:16px/1.55 var(--serif,\"Source Serif 4\",Georgia,serif)}.ds-timeline>li{display:grid;grid-template-columns:95px minmax(0,1fr);gap:50px;position:relative;padding:30px 0;border-bottom:1px solid var(--rule,#c6b0b7)}.ds-timeline>li::before{content:\"\";position:absolute;left:115px;top:44px;width:9px;height:9px;background:var(--accent,#803b55);border-radius:50%;outline:7px solid var(--paper,#f3e7e0)}.ds-date{padding-top:7px}.ds-date time{font:500 29px/1.1 var(--sans,Bricolage,sans-serif);letter-spacing:-.035em;font-variant-numeric:tabular-nums}.ds-date>span{display:block;font:12px/1.5 var(--sans,Bricolage,sans-serif);margin-top:9px;color:var(--muted,#735c65)}.ds-timeline h2{margin:0;font-size:34px;font-weight:500;line-height:1.15;letter-spacing:-.025em}.ds-role{font:14px/1.5 var(--sans,Bricolage,sans-serif);margin:10px 0 0}.ds-description{font-size:18px;line-height:1.65;color:var(--muted,#735c65);margin:19px 0 0;max-width:64ch}"
+    },
+    {
+      "name": "Native work disclosure",
+      "kind": "custom",
+      "description": "Seven work disclosures and two profile disclosures (Toolkit; Education & awards) are independently expandable, initially closed, and do not require JavaScript. Work labels include visually hidden company/role context; profile summaries use 60px minimum height. Keyboard focus is a 2px accent outline, offset 5px.",
+      "html": "<details class=\"ds-details\"><summary>Read more<span class=\"ds-sr\"> at Greenstone Financial Services — Senior Software Engineer</span><span class=\"ds-icon\" aria-hidden=\"true\"></span></summary><div class=\"ds-detail-body\"><ul><li>Feature delivery and platform observability.</li></ul></div></details>",
+      "css": ".ds-details{margin-top:14px;color:var(--ink,#49313e);background:var(--paper,#f3e7e0);font:16px/1.55 var(--serif,\"Source Serif 4\",Georgia,serif)}.ds-details summary{cursor:pointer;list-style:none;display:inline-flex;align-items:center;gap:20px;font:13px/1.5 var(--sans,Bricolage,sans-serif);min-height:44px}.ds-details summary::-webkit-details-marker{display:none}.ds-details summary:focus-visible{outline:2px solid var(--accent,#803b55);outline-offset:5px}.ds-sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;border:0}.ds-icon{position:relative;width:20px;height:20px;display:block;flex:none}.ds-icon::before,.ds-icon::after{content:\"\";position:absolute;background:currentColor;left:2px;right:2px;top:9px;height:1.5px}.ds-icon::after{transform:rotate(90deg);transition:transform 250ms var(--ease,cubic-bezier(.16,1,.3,1))}.ds-details[open]>summary .ds-icon::after{transform:rotate(0)}.ds-detail-body{padding:8px 0 18px;color:var(--muted,#735c65);font-size:16px;line-height:1.7}.ds-detail-body ul{padding-left:20px;margin:10px 0 0}@supports(interpolate-size:allow-keywords) and selector(::details-content){.ds-details{interpolate-size:allow-keywords}.ds-details::details-content{block-size:0;overflow:clip;opacity:0;transition:block-size 420ms var(--ease,cubic-bezier(.16,1,.3,1)),opacity 300ms ease-out,content-visibility 420ms allow-discrete}.ds-details[open]::details-content{block-size:auto;opacity:1}}@media(prefers-reduced-motion:reduce){.ds-details::details-content,.ds-icon::after{transition:none!important}}"
+    },
+    {
+      "name": "Theme toggle",
+      "kind": "button",
+      "refersTo": "theme-toggle",
+      "description": "Light-state appearance below. Existing templates/base.html JavaScript reveals the button, restores localStorage theme, toggles data-theme, and synchronizes the accessible action label and theme-color meta. Light is the default; dark swaps the six root colors without changing hierarchy. This HTML/CSS excerpt does not duplicate the production JavaScript.",
+      "html": "<button type=\"button\" class=\"ds-theme-toggle\" aria-label=\"Switch to dark theme\"><svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z\"/></svg></button>",
+      "css": ".ds-theme-toggle{display:inline-grid;place-items:center;width:44px;height:44px;padding:0;border:0;border-radius:50%;color:var(--ink,#49313e);background:transparent;cursor:pointer;transition:background-color 150ms}.ds-theme-toggle:hover{background:var(--panel,#e7d6d0)}.ds-theme-toggle:focus-visible{outline:2px solid var(--accent,#803b55);outline-offset:5px}.ds-theme-toggle svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.5}@media(prefers-reduced-motion:reduce){.ds-theme-toggle{transition:none}}"
+    }
+  ],
+  "narrative": {
+    "northStar": "Chronicle",
+    "overview": "Chronicle is production visual authority. Historical prototype records remain explorations. Templates read `data/resume.toml`: ten roles appear in seven groups. The separate print résumé route remains unchanged.",
+    "keyCharacteristics": [
+      "Rose paper and wine ink become deep plum and pale text in dark mode. Rules divide content; accent marks the spine, focus, and links.",
+      "Local Source Serif 4 carries names and reading text; local Bricolage carries dates, metadata, navigation, and controls."
+    ],
+    "rules": [],
+    "dos": [
+      "Do preserve concise summaries, canonical roles, visible focus, keyboard access, and reduced motion."
+    ],
+    "donts": [
+      "Don't promote historical mockups into production authority or hide initial content behind animation."
+    ]
+  }
+}

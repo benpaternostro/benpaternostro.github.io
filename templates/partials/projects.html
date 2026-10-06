@@ -1,15 +1,16 @@
-{% set resume = load_data(path="data/resume.toml") %}
-<section class="section" id="projects" aria-labelledby="projects-label">
-  <div class="section-intro">
-    <h2 class="section-label" id="projects-label"><span class="section-num">04</span> Independent Work</h2>
-    <p class="section-note">A project outside the day job.</p>
-  </div>
-  <div class="section-content project-list">
-    {% for project in resume.projects %}
-    <article class="project-entry">
-      <h3>{% if project.url %}<a href="{{ project.url }}">{{ project.name }} <span aria-hidden="true">↗</span></a>{% else %}{{ project.name }}{% endif %}</h3>
-      <p>{{ project.summary }}</p>
-    </article>
-    {% endfor %}
-  </div>
+{% if resume.projects %}
+<section class="chronicle-projects" id="projects" aria-labelledby="projects-heading">
+  <h2 id="projects-heading">Side projects</h2>
+  {% for project in resume.projects %}
+  <article>
+    {% if project.image %}
+    {% set image = resize_image(path=project.image, width=720, op="fit_width", format="webp", quality=82) %}
+    <a class="project-image" href="{{ project.url }}" aria-label="Explore {{ project.name }}"><img src="{{ image.url }}" width="{{ image.width }}" height="{{ image.height }}" alt="{{ project.image_alt }}" loading="lazy" decoding="async" /></a>
+    {% endif %}
+    <h3>{{ project.name }}</h3>
+    <p>{{ project.summary }}</p>
+    {% if project.url %}<a class="link" href="{{ project.url }}">Explore {{ project.name }} <svg aria-hidden="true"><use href="#arrow" /></svg></a>{% endif %}
+  </article>
+  {% endfor %}
 </section>
+{% endif %}

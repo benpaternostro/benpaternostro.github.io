@@ -1,11 +1,15 @@
 from html.parser import HTMLParser
 from pathlib import Path
+from collections import Counter
+from html import unescape
+import re
 import struct
 import subprocess
 import tempfile
 import tomllib
 import unittest
 from xml.etree import ElementTree
+from urllib.parse import urlsplit
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -37,6 +41,8 @@ class Document(HTMLParser):
         self.ids: set[str] = set()
         self.links: list[str] = []
         self.text_parts: list[str] = []
+        self.years: list[str] = []
+        self.images: list[str] = []
         self.feed(html)
 
     def handle_starttag(
@@ -47,6 +53,10 @@ class Document(HTMLParser):
             self.ids.add(values["id"])
         if tag == "a" and values.get("href"):
             self.links.append(values["href"])
+        if tag == "time":
+            self.years.append(values["datetime"])
+        if tag == "img":
+            self.images.append(values["src"])
 
     def handle_data(self, data: str) -> None:
         self.text_parts.append(data)
@@ -107,7 +117,6 @@ class BuiltSiteContracts(unittest.TestCase):
         self.assertTrue(
             {
                 "selected-record",
-                "practice",
                 "career-index",
                 "projects",
                 "toolkit",
@@ -116,15 +125,50 @@ class BuiltSiteContracts(unittest.TestCase):
             <= self.home.ids
         )
 
-    def test_homepage_contains_approved_positioning(self) -> None:
-        self.assertIn("Engineering across the whole delivery system.", self.home_html)
+    def test_homepage_contains_chronicle_identity_and_positioning(self) -> None:
+        self.assertIn("Ben", self.home.text)
+        self.assertIn("Paternostro", self.home.text)
+        self.assertIn("production reliability", self.home.text)
         self.assertIn("AI-assisted workflows", self.home_html)
 
     def test_navigation_links_to_primary_sections(self) -> None:
         self.assertTrue(
-            {"#selected-record", "#practice", "#career-index"}
+            {"#career-index", "#projects", "#contact"}
             <= set(self.home.links)
         )
+
+    def test_every_fragment_link_resolves(self) -> None:
+        for link in self.home.links:
+            if link.startswith("#"):
+                self.assertIn(link[1:], self.home.ids)
+
+    def test_timeline_summaries_are_escaped_once(self) -> None:
+        self.assertIn("hardware/software integration", self.home.text)
+        self.assertIn("CI/CD-based quality gates", self.home.text)
+        self.assertNotIn("&#x2F;", self.home.text)
+
+    def test_timeline_keeps_every_role_once_and_in_chronological_groups(self) -> None:
+        with (ROOT / "data/resume.toml").open("rb") as source:
+            resume = tomllib.load(source)
+        expected = Counter(item["role"] for item in resume["experience"])
+        labels = [unescape(label) for label in re.findall(
+            r'<(?:p class="timeline-role"|h3)>([^<]+)</', self.home_html
+        )]
+        self.assertEqual(expected, Counter(label for label in labels if label in expected))
+        self.assertEqual(["2026", "2025", "2024", "2023", "2020", "2019", "2016"], self.home.years)
+        for item in resume["experience"]:
+            self.assertIn(item["start_date"], self.home.text)
+            self.assertIn(item["end_date"], self.home.text)
+
+    def test_project_cover_is_published_without_prototype_dependencies(self) -> None:
+        self.assertTrue(self.home.images)
+        for url in self.home.images:
+            self.assertNotIn("prototypes", url)
+            asset = built_site() / urlsplit(url).path.lstrip("/")
+            self.assertTrue(asset.is_file())
+            self.assertEqual(".webp", asset.suffix)
+            self.assertLess(asset.stat().st_size, 100_000)
+        self.assertFalse((built_site() / "prototypes").exists())
 
     def test_print_resume_keeps_every_role(self) -> None:
         with (ROOT / "data/resume.toml").open("rb") as source:

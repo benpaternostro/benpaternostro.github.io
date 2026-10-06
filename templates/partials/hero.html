@@ -1,15 +1,7 @@
-{% set resume = load_data(path="data/resume.toml") %}
-<section class="hero" aria-labelledby="hero-title">
-  <p class="hero-kicker">{{ resume.basics.headline }} · {{ resume.basics.location }}</p>
-  <h1 id="hero-title">{{ resume.basics.hero_title }}</h1>
-  {% if resume.basics.summary %}
-  <p class="hero-summary">{{ resume.basics.summary }}</p>
-  {% endif %}
-  <ul class="hero-meta">
-    <li>{{ resume.basics.name }}</li>
-    {% if resume.basics.email %}
-    <li><a href="mailto:{{ resume.basics.email }}">{{ resume.basics.email }}</a></li>
-    {% endif %}
-    <li>TypeScript · C# · Python · Go</li>
-  </ul>
+<section class="chronicle-masthead" aria-labelledby="hero-title">
+  <h1 id="hero-title">{% for part in resume.basics.name | split(pat=" ") %}<span>{{ part }}</span> {% endfor %}</h1>
+  <div>
+    <p>Software engineering, quality engineering, and production reliability.</p>
+    <p class="masthead-meta">{{ resume.basics.headline }} · {{ resume.basics.location }}</p>
+  </div>
 </section>
