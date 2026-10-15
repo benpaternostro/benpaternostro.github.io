@@ -1,6 +1,6 @@
 [basics]
 name = "Ben Paternostro"
-headline = "Senior Software Engineer"
+headline = "AI Software Engineer"
 hero_title = "Engineering across the whole delivery system."
 location = "Sydney, Australia"
 website = "https://benpaternostro.com"
@@ -23,10 +23,32 @@ title = "Quality as architecture"
 summary = "Build testability, release confidence, and system visibility into the engineering platform rather than adding them at the end."
 
 [[experience]]
+company = "Octet"
+role = "AI Software Engineer"
+start_date = "Sep 2026"
+end_date = "Present"
+location = "Sydney, NSW, Australia"
+summary = "Deliver full-stack features and platform improvements across Octet's finance platform, using AI-assisted engineering across design, development, testing and release."
+featured = true
+featured_highlights = [
+  "Build new features and modernise existing functionality across .NET Core services, Vue.js and Blazor frontends, APIs and integrations",
+  "Use coding agents (Codex, Claude Code, Cursor) for implementation, refactoring, testing and documentation, reviewing and validating generated code"
+]
+highlights = [
+  "Build new features and modernise existing functionality across .NET Core services, Vue.js and Blazor frontends, APIs and integrations",
+  "Use coding agents (Codex, Claude Code, Cursor) for implementation, refactoring, testing and documentation, applying reusable prompts and engineering standards while reviewing and validating generated code",
+  "Work directly with business stakeholders to translate requirements into PRDs, technical specifications, implementation plans and acceptance criteria",
+  "Develop SQL Server-backed workflows, including schema design, migrations, query optimisation and reporting, maintaining data integrity across application services and integrations",
+  "Support AWS infrastructure and CI/CD workflows using Azure DevOps and GitHub, improving environment separation, release controls, rollback and recovery across development, staging and production",
+  "Write and maintain unit, integration, API, frontend and end-to-end tests, incorporating automated checks into pull requests and release workflows",
+  "Develop production observability through structured logging, metrics, traces, dashboards and alerts, investigating incidents and addressing root causes"
+]
+
+[[experience]]
 company = "Greenstone Financial Services"
 role = "Senior Software Engineer"
 start_date = "Mar 2026"
-end_date = "Present"
+end_date = "Aug 2026"
 location = "Sydney, NSW, Australia"
 summary = "Own feature delivery and platform observability across customer-facing insurance and financial services portals serving tens of thousands of users."
 featured = true
@@ -78,11 +100,7 @@ start_date = "Mar 2024"
 end_date = "Jan 2025"
 location = "Sydney, NSW, Australia"
 summary = "Led company-wide automation strategy, roadmap, and platform implementation."
-featured = true
-featured_highlights = [
-  "Built Playwright E2E and Postman/Newman API frameworks with CI/CD integration",
-  "Mentored and upskilled manual testers into automation engineers through workshops, pairing, and documentation"
-]
+featured = false
 highlights = [
   "Defined organisational test automation strategy and rollout roadmap",
   "Built Playwright E2E and Postman/Newman API frameworks with CI/CD integration",
@@ -215,11 +233,15 @@ end_date = "2015"
 
 [[skills]]
 name = "AI Tooling"
-keywords = ["Claude Code", "Codex", "GitHub Copilot", "MCP", "Agent Skills"]
+keywords = ["Claude Code", "Codex", "Cursor", "GitHub Copilot", "MCP", "Agent Skills"]
 
 [[skills]]
 name = "Programming Languages"
 keywords = ["TypeScript", "JavaScript", "C#", "Python", "Go", "SQL", "PowerShell", "Bash"]
+
+[[skills]]
+name = "Frameworks & Data"
+keywords = [".NET Core", "Vue.js", "Blazor", "SQL Server"]
 
 [[skills]]
 name = "Cloud & DevOps"

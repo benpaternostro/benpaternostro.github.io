@@ -155,7 +155,7 @@ class BuiltSiteContracts(unittest.TestCase):
             r'<(?:p class="timeline-role"|h3)>([^<]+)</', self.home_html
         )]
         self.assertEqual(expected, Counter(label for label in labels if label in expected))
-        self.assertEqual(["2026", "2025", "2024", "2023", "2020", "2019", "2016"], self.home.years)
+        self.assertEqual(["2026", "2026", "2025", "2024", "2023", "2020", "2019", "2016"], self.home.years)
         for item in resume["experience"]:
             self.assertIn(item["start_date"], self.home.text)
             self.assertIn(item["end_date"], self.home.text)
