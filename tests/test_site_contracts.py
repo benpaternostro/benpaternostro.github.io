@@ -98,11 +98,6 @@ class ResumeDataContracts(unittest.TestCase):
         self.assertEqual("Present", current["end_date"])
         self.assertEqual(3, len(self.resume.get("now", [])))
 
-    def test_practice_has_three_plain_language_entries(self) -> None:
-        practice = self.resume.get("practice", [])
-        self.assertEqual(3, len(practice))
-        self.assertTrue(all(item["title"] and item["summary"] for item in practice))
-
 
 class BuiltSiteContracts(unittest.TestCase):
     @classmethod
@@ -117,7 +112,6 @@ class BuiltSiteContracts(unittest.TestCase):
         self.assertTrue(
             {
                 "work",
-                "ai",
                 "career",
                 "projects",
                 "toolkit",
@@ -134,10 +128,10 @@ class BuiltSiteContracts(unittest.TestCase):
         self.assertIn("test automation and site reliability", self.home.text)
         self.assertNotIn("**", self.home_html)
 
-    def test_homepage_shows_recent_work_and_agent_practice(self) -> None:
+    def test_homepage_shows_recent_work(self) -> None:
         with (ROOT / "data/resume.toml").open("rb") as source:
             resume = tomllib.load(source)
-        for item in resume["cases"] + resume["practice"]:
+        for item in resume["cases"]:
             self.assertIn(item["title"], self.home.text)
             self.assertIn(item["summary"], self.home.text)
 

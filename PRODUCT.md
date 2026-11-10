@@ -31,9 +31,9 @@ Email, LinkedIn, the print résumé, and the independent Angla project are real 
 The user wants a minimal interface, brief copy, considered transitions, and full
 mobile/desktop usability. Copy is first person, plain and modest: no taglines
 and no em dashes. The homepage opens with a short introduction and a "Now" card,
-then three recent pieces of work, how Ben uses coding agents, a career table with
-native expandable rows, the Angla side project, toolkit, and contact. The theme
-follows the device setting, with a switch that remembers an override.
+then three recent pieces of work, a career table with native expandable rows,
+the Angla side project, toolkit, and contact. The theme follows the device
+setting, with a switch that remembers an override.
 All eleven roles remain available; roles at the same employer share a row.
 
 ## Evidence on Hand

@@ -136,13 +136,6 @@ svg.symbols { position: absolute; width: 0; height: 0; }
 .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 22px; }
 .tags li { padding: 5px 10px; border-radius: 7px; background: var(--tint); color: var(--accent); font-size: 12.5px; font-weight: 500; }
 
-.principles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1.5px solid var(--ink); }
-.principles li { padding: 26px 32px 6px 0; }
-.principles li + li { padding-left: 32px; border-left: 1px solid var(--rule); }
-.principles b { display: block; font-size: 13px; font-weight: 600; color: var(--accent); }
-.principles h3 { margin-top: 14px; font-size: 23px; letter-spacing: -.025em; }
-.principles p { margin-top: 10px; font: 16.5px/1.55 var(--serif); color: var(--muted); }
-
 .career { border-top: 1.5px solid var(--ink); }
 .career > li { border-bottom: 1px solid var(--rule); }
 .career summary { display: grid; grid-template-columns: 130px 300px minmax(0, 1fr) 24px; gap: 28px; align-items: baseline; padding: 20px 0; list-style: none; cursor: pointer; }
@@ -231,9 +224,6 @@ details[open] .disclosure-icon::after { transform: rotate(0deg); }
   .cases, .duo { grid-template-columns: 1fr; gap: 14px; }
   .case { padding: 22px; }
   .case h3 { margin-top: 22px; font-size: 26px; }
-  .principles { grid-template-columns: 1fr; }
-  .principles li, .principles li + li { padding: 20px 0; border-left: 0; }
-  .principles li + li { border-top: 1px solid var(--rule); }
   .career summary { grid-template-columns: minmax(0, 1fr) 20px; gap: 4px 12px; padding: 16px 0; }
   .career .yr { grid-column: 1 / -1; font-size: 13px; }
   .career h3 { font-size: 19px; }

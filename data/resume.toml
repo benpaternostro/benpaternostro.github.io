@@ -61,18 +61,6 @@ points = [
 ]
 tags = ["Pact", "k6", "Visual regression"]
 
-[[practice]]
-title = "Treat it like any other code"
-summary = "Agent-written changes get the same tests, review and monitoring as anything I write by hand."
-
-[[practice]]
-title = "Give the agent good context"
-summary = "MCP integrations, reusable prompts and written standards help it plan and build the right thing."
-
-[[practice]]
-title = "Keep an eye on quality and cost"
-summary = "Agreed patterns for planning and implementation, and attention to context quality and model spend."
-
 [[experience]]
 company = "Octet"
 role = "AI Software Engineer"
