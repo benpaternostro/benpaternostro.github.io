@@ -1,9 +1,0 @@
-<details class="profile-details" id="background">
-  <summary>Education &amp; awards <span class="disclosure-icon" aria-hidden="true"></span></summary>
-  <div class="detail-body">
-    {% for item in resume.education %}
-    <h3>{{ item.institution }}</h3><p>{{ item.study_type }}, {{ item.area }}<br>{{ item.start_date }} — {{ item.end_date }}</p>
-    {% endfor %}
-    {% if resume.awards %}<h3>Recognition</h3><ul>{% for award in resume.awards %}<li>{{ award.title }}</li>{% endfor %}</ul>{% endif %}
-  </div>
-</details>

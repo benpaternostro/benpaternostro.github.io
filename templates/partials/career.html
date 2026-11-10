@@ -1,0 +1,42 @@
+{% set first_role = resume.experience | last %}
+<section class="block" id="career" aria-labelledby="career-heading">
+  <div class="head"><h2 id="career-heading">Career</h2><p>{{ first_role.start_date | split(pat=" ") | last }} to now. Open a row for more.</p></div>
+  <ol class="career" aria-label="Career, most recent first">
+    {# Roles that share a timeline_group collapse into one row per company. #}
+    {% set_global previous_group = "" %}
+    {% for item in resume.experience %}
+    {% set group = item.timeline_group | default(value="") %}
+    {% if not group or group != previous_group %}
+      {% if group %}
+        {% set roles = resume.experience | filter(attribute="timeline_group", value=group) %}
+      {% else %}
+        {% set roles = [item] %}
+      {% endif %}
+      {% set oldest = roles | last %}
+      {% set start_year = oldest.start_date | split(pat=" ") | last %}
+      {% set end_year = item.end_date | split(pat=" ") | last %}
+      {% set is_current = item.end_date == "Present" %}
+      <li>
+        <details>
+          <summary>
+            <span class="yr"><time datetime="{{ start_year }}">{{ start_year }}</time>{% if is_current %} to now{% elif end_year != start_year %} to {{ end_year }}{% endif %}</span>
+            <h3>{{ item.company }}{% if is_current %}<span class="badge">Now</span>{% endif %}<small class="career-role">{{ item.timeline_role | default(value=item.role) }}</small></h3>
+            <span class="what">{{ item.timeline_summary | default(value=item.summary) }}</span>
+            <span class="disclosure-icon" aria-hidden="true"></span>
+          </summary>
+          <div class="detail-body">
+            {% for role in roles %}
+            <div class="role">
+              {% if roles | length > 1 %}<h4>{{ role.role }}</h4>{% endif %}
+              <p class="role-dates">{{ role.start_date }} to {{ role.end_date }}</p>
+              <ul>{% for highlight in role.highlights %}<li>{{ highlight }}</li>{% endfor %}</ul>
+            </div>
+            {% endfor %}
+          </div>
+        </details>
+      </li>
+    {% endif %}
+    {% set_global previous_group = group %}
+    {% endfor %}
+  </ol>
+</section>

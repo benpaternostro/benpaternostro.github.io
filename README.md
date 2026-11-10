@@ -14,7 +14,9 @@ Minimal personal site built with Zola and deployed to GitHub Pages.
 - `content/` markdown pages
 - `templates/` Tera templates (`index.html` single-page resume, `partials/`, `resume-print.html`)
 - `data/resume.toml` source of truth for resume content
-- `static/` static assets, hand-written `styles.css`, self-hosted `fonts/`, and `CNAME`
+- `static/` static assets, hand-written `styles.css`, self-hosted `fonts/`, `og.png`, and `CNAME`
+- `design/og-card.html` source for the link preview image `static/og.png`
+- `tests/` contract tests that build the site and check the output
 - `.github/workflows/deploy.yml` deployment workflow
 
 ## Local Development
@@ -34,18 +36,32 @@ zola build
 
 Generated files are output to `public/` (ignored by git).
 
+## Tests
+
+```bash
+python3 -m unittest discover -s tests
+```
+
+The tests run `zola build` into a temporary folder, so Zola must be on `PATH`.
+
 ## Design
 
 - No third-party theme or CSS framework. Styling is a single hand-written
   stylesheet at `static/styles.css` using CSS custom properties.
-- Swiss-typographic single page: a `data/resume.toml`-driven hero plus numbered
-  sections (experience, skills, projects, education, awards).
-- Defaults to a light palette; a toggle switches to dark and persists the
-  choice in `localStorage`.
-- Typography is self-hosted Inter (`static/fonts/inter-latin-wght-normal.woff2`)
-  with a system monospace stack for dates and labels.
-- Design decisions are recorded in
-  `docs/superpowers/specs/2026-07-01-resume-redesign-design.md`.
+- "Proof first" single page, all driven by `data/resume.toml`: introduction with
+  email, résumé and LinkedIn buttons and a "Now" card, three "Recent work" cards
+  (`[[cases]]`), how Ben works with coding agents (`[[practice]]`), a career table
+  with one expandable row per employer, side projects, toolkit, and contact.
+- Roles that share a `timeline_group` appear as one career row. `timeline_role`
+  and `timeline_summary` set the text shown on the closed row.
+- Follows the device light or dark setting. The toggle overrides it and stores
+  the choice in `localStorage`.
+- Self-hosted fonts: Bricolage Grotesque for headings and labels, Source Serif 4
+  for reading text. The print résumé uses Inter.
+- Link previews: Open Graph and Twitter tags, `Person` structured data, and
+  `static/og.png` (1200 x 630). To refresh the image after changing the headline,
+  edit `design/og-card.html` and screenshot it at 1200 x 630.
+- Design decisions are recorded in `DESIGN.md` and `PRODUCT.md`.
 
 ## Resume Update Workflow (PDF -> TOML)
 

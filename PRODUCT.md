@@ -8,8 +8,9 @@ web
 
 ## Product Purpose
 
-A personal résumé and portfolio for Ben Paternostro, a Senior Software Engineer
-in Sydney, Australia. Chronicle is the selected production design.
+A personal résumé and portfolio for Ben Paternostro, a software engineer
+in Sydney, Australia. "Proof first" is the selected production design
+(10 November 2026); it replaced Chronicle.
 
 ## Users
 
@@ -25,18 +26,21 @@ engineering, and site reliability engineering.
 ## Capabilities and Constraints
 
 The production website uses Zola, Tera templates, hand-written CSS, and GitHub
-Pages. Chronicle is implemented in the production Tera templates and CSS.
-The résumé data, print route, and earlier prototypes are preserved.
+Pages. The résumé data and print route are preserved.
 Email, LinkedIn, the print résumé, and the independent Angla project are real links.
 The user wants a minimal interface, brief copy, considered transitions, and full
-mobile/desktop usability. The homepage presents a dated career timeline with
-native expandable details, a Side projects sidebar with Angla, and a persistent theme switch.
-All ten roles remain available; contiguous early-career roles may share a row.
+mobile/desktop usability. Copy is first person, plain and modest: no taglines
+and no em dashes. The homepage opens with a short introduction and a "Now" card,
+then three recent pieces of work, how Ben uses coding agents, a career table with
+native expandable rows, the Angla side project, toolkit, and contact. The theme
+follows the device setting, with a switch that remembers an override.
+All eleven roles remain available; roles at the same employer share a row.
 
 ## Evidence on Hand
 
 - `data/resume.toml`: source of truth for identity, roles, dates, achievements,
-  skills, education, and the Angla description.
+  recent work cards, skills, education, and the Angla description. Every figure
+  on the work cards comes from the role highlights in the same file.
 - `assets/angla-app.jpg`: browser capture of Angla’s public example dashboard
   on 6 October 2026. The forecast data is illustrative.
 - `assets/README.md`: screenshot provenance; Zola publishes an optimized WebP.

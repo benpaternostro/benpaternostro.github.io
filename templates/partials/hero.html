@@ -1,7 +1,28 @@
-<section class="chronicle-masthead" aria-labelledby="hero-title">
-  <h1 id="hero-title">{% for part in resume.basics.name | split(pat=" ") %}<span>{{ part }}</span> {% endfor %}</h1>
+{% set current = resume.experience | first %}
+<section class="hero" aria-labelledby="hero-title">
   <div>
-    <p>Software engineering, quality engineering, and production reliability.</p>
-    <p class="masthead-meta">{{ resume.basics.headline }} · {{ resume.basics.location }}</p>
+    <h1 id="hero-title">{{ resume.basics.hero_title }} <em>{{ resume.basics.hero_accent }}</em></h1>
+    <p class="sub">{{ resume.basics.hero_intro | markdown(inline=true) | safe }}</p>
+    <div class="cta">
+      <a class="btn primary" href="mailto:{{ resume.basics.email }}">Email me</a>
+      <a class="btn" href="{{ get_url(path='@/resume-print.md') }}">Résumé</a>
+      {% for link in resume.links %}
+      <a class="btn" href="{{ link.url | safe }}">{{ link.label }} <svg aria-hidden="true"><use href="#arrow" /></svg></a>
+      {% endfor %}
+    </div>
   </div>
+  {% if current.end_date == "Present" %}
+  <aside class="now" aria-labelledby="now-title">
+    <p class="label"><span class="dot" aria-hidden="true"></span>Now</p>
+    <h2 id="now-title">{{ current.company }}</h2>
+    <p>{{ current.role }}, since {{ current.start_date }}</p>
+    {% if resume.now %}
+    <dl>
+      {% for row in resume.now %}
+      <div><dt>{{ row.label }}</dt><dd>{{ row.value }}</dd></div>
+      {% endfor %}
+    </dl>
+    {% endif %}
+  </aside>
+  {% endif %}
 </section>

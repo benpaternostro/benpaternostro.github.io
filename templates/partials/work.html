@@ -1,0 +1,14 @@
+<section class="block" id="work" aria-labelledby="work-heading">
+  <div class="head"><h2 id="work-heading">Recent work</h2></div>
+  <div class="cases">
+    {% for case in resume.cases %}
+    <article class="case">
+      <p class="meta"><b aria-hidden="true">0{{ loop.index }}</b><span>{{ case.company }} · {{ case.period }}</span></p>
+      <h3>{{ case.title }}</h3>
+      <p class="case-summary">{{ case.summary }}</p>
+      <ul>{% for point in case.points %}<li>{{ point }}</li>{% endfor %}</ul>
+      <ul class="tags" aria-label="Tools">{% for tag in case.tags %}<li>{{ tag }}</li>{% endfor %}</ul>
+    </article>
+    {% endfor %}
+  </div>
+</section>

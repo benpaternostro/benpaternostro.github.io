@@ -1,22 +1,59 @@
 {% extends "base.html" %}
 
-{% block title %}{% set resume = load_data(path="data/resume.toml") %}{{ resume.basics.name }} — {{ resume.basics.headline }}{% endblock title %}
-{% block description %}{% set resume = load_data(path="data/resume.toml") %}{{ resume.basics.summary }}{% endblock description %}
+{% block title %}{% set resume = load_data(path="data/resume.toml") %}{{ resume.basics.name }} · {{ resume.basics.headline }}{% endblock title %}
+{% block description %}{% set resume = load_data(path="data/resume.toml") %}{{ resume.basics.hero_intro | replace(from="**", to="") }}{% endblock description %}
+
+{% block social %}
+    {% set resume = load_data(path="data/resume.toml") %}
+    {% set current = resume.experience | first %}
+    {% set intro = resume.basics.hero_intro | replace(from="**", to="") %}
+    <link rel="canonical" href="{{ get_url(path='@/_index.md') }}" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="{{ resume.basics.name }}" />
+    <meta property="og:title" content="{{ resume.basics.name }} · {{ resume.basics.headline }}" />
+    <meta property="og:description" content="{{ intro }}" />
+    <meta property="og:url" content="{{ get_url(path='@/_index.md') }}" />
+    <meta property="og:image" content="{{ get_url(path='og.png') }}" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="{{ resume.basics.name }}, {{ resume.basics.headline }}, {{ resume.basics.location }}" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": {{ resume.basics.name | json_encode | safe }},
+        "jobTitle": {{ resume.basics.headline | json_encode | safe }},
+        "description": {{ intro | json_encode | safe }},
+        "url": {{ resume.basics.website | json_encode | safe }},
+        "homeLocation": { "@type": "Place", "name": {{ resume.basics.location | json_encode | safe }} },
+        "worksFor": { "@type": "Organization", "name": {{ current.company | json_encode | safe }} },
+        "sameAs": {{ resume.links | map(attribute="url") | json_encode | safe }}
+      }
+    </script>
+{% endblock social %}
 
 {% block content %}
 {% include "partials/hero.html" %}
-<div class="chronicle-body" id="career-index">
-  {% include "partials/career-index.html" %}
-  <aside class="chronicle-aside" aria-label="About and independent work">
+{% include "partials/work.html" %}
+{% include "partials/practice.html" %}
+{% include "partials/career.html" %}
+<section class="block" aria-label="Side projects and toolkit">
+  <div class="duo">
     {% include "partials/projects.html" %}
-    <div>
-      {% include "partials/skills.html" %}
-      {% include "partials/background.html" %}
-    </div>
-  </aside>
-</div>
-<section class="chronicle-contact" id="contact" aria-labelledby="contact-heading">
-  <h2 id="contact-heading">Contact</h2>
-  <a class="link" href="mailto:{{ resume.basics.email }}">{{ resume.basics.email }} <svg aria-hidden="true"><use href="#arrow" /></svg></a>
+    {% include "partials/skills.html" %}
+  </div>
+</section>
+<section class="contact" id="contact" aria-labelledby="contact-heading">
+  <div>
+    <h2 id="contact-heading">Get in touch</h2>
+    <p>{{ resume.basics.contact_note }}</p>
+  </div>
+  <div class="cta">
+    <a class="btn primary" href="mailto:{{ resume.basics.email }}">{{ resume.basics.email }}</a>
+    {% for link in resume.links %}
+    <a class="btn" href="{{ link.url | safe }}">{{ link.label }} <svg aria-hidden="true"><use href="#arrow" /></svg></a>
+    {% endfor %}
+  </div>
 </section>
 {% endblock content %}

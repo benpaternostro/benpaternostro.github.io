@@ -1,70 +1,97 @@
 ---
-name: "Chronicle"
-description: "Ben Paternostro’s production career portfolio"
+name: "Proof first"
+description: "Ben Paternostro's résumé and portfolio"
 colors:
-  paper: "#f3e7e0"
-  ink: "#49313e"
-  muted: "#735c65"
-  rule: "#c6b0b7"
+  paper: "#f7f3ee"
+  card: "#fffdfa"
+  ink: "#1f1a1d"
+  muted: "#6b6166"
+  rule: "#e0d7d1"
   accent: "#803b55"
-  panel: "#e7d6d0"
-  dark-paper: "#241e24"
-  dark-ink: "#f1e7e9"
-  dark-muted: "#c4adb8"
-  dark-rule: "#5a454f"
+  tint: "#f1e3e3"
+  plum: "#803b55"
+  on-plum: "#fbeef0"
+  dark-paper: "#1d181b"
+  dark-card: "#272024"
+  dark-ink: "#f3ecee"
+  dark-muted: "#b9a9b0"
+  dark-rule: "#40353b"
   dark-accent: "#e5a6bd"
-  dark-panel: "#362a32"
+  dark-tint: "#3a2a32"
 typography:
-  display: {fontFamily: '"Source Serif 4", Georgia, serif', fontSize: "clamp(50px,6.4vw,90px)", fontWeight: 500, lineHeight: 1.02, letterSpacing: "-.035em"}
-  headline: {fontFamily: '"Source Serif 4", Georgia, serif', fontSize: "34px", fontWeight: 500, lineHeight: 1.15, letterSpacing: "-.025em"}
-  body: {fontFamily: '"Source Serif 4", Georgia, serif', fontSize: "16px", lineHeight: 1.55}
-  description: {fontFamily: '"Source Serif 4", Georgia, serif', fontSize: "18px", lineHeight: 1.65}
-  label: {fontFamily: '"Bricolage", sans-serif', fontSize: "13px", lineHeight: 1.5}
-  date: {fontFamily: '"Bricolage", sans-serif', fontSize: "29px", fontWeight: 500, lineHeight: 1.1, letterSpacing: "-.035em"}
-rounded: {circle: "50%"}
-spacing: {gutter: "clamp(22px,4vw,64px)", timeline-row: "30px"}
+  display: {fontFamily: '"Bricolage", system-ui, sans-serif', fontSize: "clamp(42px,6.1vw,88px)", fontWeight: 600, lineHeight: 0.98, letterSpacing: "-.045em"}
+  headline: {fontFamily: '"Bricolage", system-ui, sans-serif', fontSize: "clamp(28px,3vw,40px)", fontWeight: 600, letterSpacing: "-.035em"}
+  card-title: {fontFamily: '"Bricolage", system-ui, sans-serif', fontSize: "29px", fontWeight: 600, lineHeight: 1.08, letterSpacing: "-.035em"}
+  body: {fontFamily: '"Bricolage", system-ui, sans-serif', fontSize: "16px", lineHeight: 1.55}
+  reading: {fontFamily: '"Source Serif 4", Georgia, serif', fontSize: "16.5px", lineHeight: 1.55}
+  label: {fontFamily: '"Bricolage", system-ui, sans-serif', fontSize: "12px", fontWeight: 600, letterSpacing: ".08em"}
+rounded: {card: "18px", button: "12px", chip: "7px", contact: "24px"}
+spacing: {gutter: "clamp(20px,4vw,64px)", section: "84px", card-gap: "20px"}
 components:
-  theme-toggle: {backgroundColor: "transparent", textColor: "{colors.ink}", rounded: "{rounded.circle}", size: "44px", padding: "0"}
-  theme-toggle-hover: {backgroundColor: "{colors.panel}"}
+  button: {textColor: "{colors.ink}", rounded: "{rounded.button}", height: "48px", border: "1.5px solid {colors.ink}"}
+  button-primary: {backgroundColor: "{colors.ink}", textColor: "{colors.paper}"}
+  theme-toggle: {backgroundColor: "transparent", textColor: "{colors.ink}", size: "44px"}
 ---
 
 ## Overview
 
-**Creative North Star: "Chronicle"**
+**Direction: "Proof first"**
 
-Chronicle is production visual authority. Historical prototype records remain explorations. Templates read `data/resume.toml`: ten roles appear in seven groups. The separate print résumé route remains unchanged.
+The first screen says who Ben is and what he does now, with email, résumé and
+LinkedIn one tap away. Results come next as three "Recent work" cards. The full
+career follows as a compact table that opens for detail. Copy is first person,
+plain and modest: no slogans. Templates read `data/resume.toml`; eleven roles
+appear in seven employer rows. The separate print résumé route is unchanged.
 
 ## Colors
 
-Rose paper and wine ink become deep plum and pale text in dark mode. Rules divide content; accent marks the spine, focus, and links.
+Warm near-white paper, off-white cards, near-black ink, and one plum accent.
+Dark mode uses deep plum-black paper and a rose accent. The contact panel stays
+plum in both modes. All text pairs meet WCAG AA (lowest is muted text on paper
+at 5.4:1).
 
 ## Typography
 
-Local Source Serif 4 carries names and reading text; local Bricolage carries dates, metadata, navigation, and controls.
+Local Bricolage Grotesque (WOFF2, latin subset) carries headings, labels,
+navigation and controls. Local Source Serif 4 carries reading text: the
+introduction, card summaries, career summaries and highlights.
 
 ## Layout
 
-Maximum width 1320px; dated timeline beside a 240px sidebar. At 1000px the sidebar narrows to 210px. At 760px it follows the timeline; at 520px the masthead and sidebar stack. Dates remain beside roles; small dates reach 11px. On phones the date column is 64px, the gap 36px, and the spine axis 80px, leaving clear space between the year and its dot. The navigation stands alone without a tagline; phone links share the available row width.
+Maximum width 1240px. Introduction beside a 340px "Now" card; three work cards;
+three numbered habits; career table (years, employer and role, summary,
+disclosure); two panels (side project, toolkit with education); contact panel.
+At 900px everything stacks to one column and career summaries show only when a
+row is open. At 720px the section links leave the top bar, which keeps the
+résumé button and theme switch. At 360px the monogram is dropped.
 
 ## Elevation & Depth
 
-Flat surfaces, tonal contrast, and fine rules; no shadows.
+Flat cards with a one-pixel rule; no shadows.
 
 ## Shapes
 
-App screenshots and reading regions, circular timeline dots and theme button.
+18px card corners, 12px buttons, 7px chips, 24px contact panel.
 
 ## Components
 
-Nine independent native disclosures start closed. Supporting browsers interpolate height over 420ms; native opening remains the fallback. Reduced motion disables transitions, smooth scrolling, and hover movement.
+Seven native disclosures, one per employer, start closed. Supporting browsers
+interpolate height over 320ms; native opening is the fallback. Reduced motion
+disables transitions, smooth scrolling and hover movement.
 
-Existing theme JavaScript persists the choice and synchronizes button labels and browser theme color; light is the default.
+The theme follows the device setting. The toggle overrides it, persists the
+choice, and keeps the button label and browser theme colour in step.
 
-Side projects is a section heading, with Angla as a project entry. Zola derives a 720px-wide WebP from `assets/angla-app.jpg`, preserving the full app screenshot’s aspect ratio. Provenance: `assets/README.md` and JPEG metadata.
+Angla is the side project panel. Zola derives a 720px-wide WebP from
+`assets/angla-app.jpg`. Provenance: `assets/README.md`.
 
 ## Do's and Don'ts
 
-- Do preserve concise summaries, canonical roles, visible focus, keyboard access, and reduced motion.
-- Don't promote historical mockups into production authority or hide initial content behind animation.
+- Do keep copy plain and factual, keep every role reachable, and preserve
+  visible focus, keyboard access, 44px tap targets and reduced motion.
+- Don't add taglines, em dashes, or content that only appears through animation.
 
-Recorded checks: 17 site contracts, Zola check, Chromium overflow checks at 320–1440px, keyboard disclosures, theme persistence/labels/meta, and print navigation. Chromium motion was observed; other engines/devices remain unverified. [Independent finish review](.impeccable/review/chronicle-refinement-review.md): ship.
+Recorded checks (10 Nov 2026): 24 site contracts, `zola check`, Chromium overflow
+checks at 320 to 1920px with every row open, keyboard disclosures, theme
+follow/override/persistence/labels/meta, 44px tap targets at phone width, and
+contrast ratios for both palettes. Other engines and real devices are unverified.

@@ -1,7 +1,10 @@
 [basics]
 name = "Ben Paternostro"
 headline = "AI Software Engineer"
-hero_title = "Engineering across the whole delivery system."
+hero_title = "I'm Ben, a software engineer"
+hero_accent = "in Sydney."
+hero_intro = "I build full-stack features at **Octet**, mostly with AI coding tools. Before that I worked mainly in test automation and site reliability."
+contact_note = "I'm based in Sydney. Email is the best way to reach me."
 location = "Sydney, Australia"
 website = "https://benpaternostro.com"
 email = "contact@benpaternostro.com"
@@ -10,30 +13,74 @@ summary = "Full-stack engineer shipping customer-facing software with AI-assiste
 label = "LinkedIn"
 url = "https://www.linkedin.com/in/benpaternostro"
 
-[[practice]]
-title = "Product delivery"
-summary = "Own features across implementation, deployment, and production, with short feedback loops back to the team and customer."
+[[now]]
+label = "Building"
+value = "Full-stack features on a finance platform"
+
+[[now]]
+label = "Stack"
+value = ".NET Core, Vue.js, Blazor, SQL Server, AWS"
+
+[[now]]
+label = "Agents"
+value = "Claude Code, Codex, Cursor"
+
+[[cases]]
+company = "Greenstone"
+period = "2026"
+title = "End-to-end tests in about two minutes"
+summary = "Quick enough to run on every release, so the team could deploy during business hours."
+points = [
+  "Ephemeral environments spun up in CI",
+  "Third-party auth bypassed, sessions cached",
+  "Tests run in parallel"
+]
+tags = ["Playwright", "Azure DevOps", "CI/CD"]
+
+[[cases]]
+company = "Rokt"
+period = "2023"
+title = "Continuous delivery without manual sign-off"
+summary = "Cloud-native services released on the strength of their automated tests."
+points = [
+  "Progressive rollout via Argo Rollouts",
+  "Monitored in Datadog with automated rollback",
+  "SLOs and tuned alerting to cut operational noise"
+]
+tags = ["Kubernetes", "AWS", "Terraform", "Go"]
+
+[[cases]]
+company = "Rokt"
+period = "2021 to 2023"
+title = "Contract tests across a dozen-plus services"
+summary = "Shared testing tools for teams working across 100+ services. Received Rokt's Hidden Value award."
+points = [
+  "Pact contract testing in multiple languages",
+  "Visual regression that reduced customer-reported UI defects",
+  "k6 load testing with production traffic replay"
+]
+tags = ["Pact", "k6", "Visual regression"]
 
 [[practice]]
-title = "AI-assisted workflow"
-summary = "Use coding agents for substantial delivery while retaining planning, testing, review, observability, and cost discipline."
+title = "Treat it like any other code"
+summary = "Agent-written changes get the same tests, review and monitoring as anything I write by hand."
 
 [[practice]]
-title = "Quality as architecture"
-summary = "Build testability, release confidence, and system visibility into the engineering platform rather than adding them at the end."
+title = "Give the agent good context"
+summary = "MCP integrations, reusable prompts and written standards help it plan and build the right thing."
+
+[[practice]]
+title = "Keep an eye on quality and cost"
+summary = "Agreed patterns for planning and implementation, and attention to context quality and model spend."
 
 [[experience]]
 company = "Octet"
 role = "AI Software Engineer"
+timeline_summary = "Full-stack features and platform improvements on a finance platform, with AI-assisted engineering from design to release."
 start_date = "Sep 2026"
 end_date = "Present"
 location = "Sydney, NSW, Australia"
 summary = "Deliver full-stack features and platform improvements across Octet's finance platform, using AI-assisted engineering across design, development, testing and release."
-featured = true
-featured_highlights = [
-  "Build new features and modernise existing functionality across .NET Core services, Vue.js and Blazor frontends, APIs and integrations",
-  "Use coding agents (Codex, Claude Code, Cursor) for implementation, refactoring, testing and documentation, reviewing and validating generated code"
-]
 highlights = [
   "Build new features and modernise existing functionality across .NET Core services, Vue.js and Blazor frontends, APIs and integrations",
   "Use coding agents (Codex, Claude Code, Cursor) for implementation, refactoring, testing and documentation, applying reusable prompts and engineering standards while reviewing and validating generated code",
@@ -47,20 +94,13 @@ highlights = [
 [[experience]]
 company = "Greenstone Financial Services"
 role = "Senior Software Engineer"
+timeline_group = "greenstone-2025"
+timeline_role = "Senior Software Engineer, from Senior QA Engineer"
+timeline_summary = "Feature delivery and observability for insurance and financial services portals serving tens of thousands of users."
 start_date = "Mar 2026"
 end_date = "Aug 2026"
 location = "Sydney, NSW, Australia"
 summary = "Own feature delivery and platform observability across customer-facing insurance and financial services portals serving tens of thousands of users."
-featured = true
-featured_highlights = [
-  "Led adoption of OpenTelemetry, OpenFeature, and Storybook for observability, progressive delivery, and component development",
-  "Deliver most feature work with coding agents, applying established planning and implementation patterns while managing context quality and model cost"
-]
-evidence = [
-  { title = "~2-minute E2E feedback", detail = "Ephemeral CI environments, cached sessions, and parallel execution shortened the end-to-end feedback loop." },
-  { title = "Routine daytime releases", detail = "Out-of-hours deployment and manual production validation became the exception rather than the norm." },
-  { title = "Unified production visibility", detail = "Logs, metrics, traces, and real-user monitoring were consolidated in Datadog." }
-]
 highlights = [
   "Led adoption of OpenTelemetry, OpenFeature (with LaunchDarkly), and Storybook, enabling end-to-end observability, progressive feature delivery, and component development with a visual-regression testing layer",
   "Deliver most feature work with coding agents (Claude Code, Codex, GitHub Copilot), applying established planning and implementation patterns while managing context quality and model cost",
@@ -74,15 +114,11 @@ highlights = [
 [[experience]]
 company = "Greenstone Financial Services"
 role = "Senior Software QA Engineer"
+timeline_group = "greenstone-2025"
 start_date = "Mar 2025"
 end_date = "Feb 2026"
 location = "Sydney, NSW, Australia"
 summary = "Owned test automation strategy, frameworks, and test observability across customer-facing portals."
-featured = true
-featured_highlights = [
-  "Designed and implemented a Playwright end-to-end testing framework replacing legacy Selenium",
-  "Implemented visual regression testing for large-scale dynamic PDF rendering"
-]
 highlights = [
   "Designed and implemented a Playwright end-to-end testing framework replacing legacy Selenium",
   "Integrated test framework into Azure DevOps pipelines for release-gated automation",
@@ -96,11 +132,11 @@ highlights = [
 [[experience]]
 company = "Simpology Australia"
 role = "QA Automation Lead"
+timeline_summary = "Company-wide automation strategy, roadmap and platform implementation."
 start_date = "Mar 2024"
 end_date = "Jan 2025"
 location = "Sydney, NSW, Australia"
 summary = "Led company-wide automation strategy, roadmap, and platform implementation."
-featured = false
 highlights = [
   "Defined organisational test automation strategy and rollout roadmap",
   "Built Playwright E2E and Postman/Newman API frameworks with CI/CD integration",
@@ -113,11 +149,11 @@ highlights = [
 [[experience]]
 company = "DroneShield"
 role = "Senior Software QA Engineer"
+timeline_summary = "QA automation and release quality for distributed systems and hardware/software integration."
 start_date = "Oct 2023"
 end_date = "Mar 2024"
 location = "Sydney, NSW, Australia"
 summary = "Owned QA automation and release quality for distributed systems and hardware/software integration."
-featured = false
 highlights = [
   "Designed and maintained automation frameworks in CI/CD pipelines",
   "Improved frontend and integration test coverage across complex distributed systems",
@@ -128,12 +164,12 @@ highlights = [
 company = "Rokt"
 role = "Senior Site Reliability Engineer"
 timeline_group = "rokt-2020"
-timeline_summary = "Built quality platforms across a 100+ service ecosystem, then led reliability initiatives across cloud-native services."
+timeline_role = "Senior Site Reliability Engineer, from Software Engineer (QA)"
+timeline_summary = "Quality platforms across a 100+ service ecosystem, then reliability initiatives across cloud-native services."
 start_date = "Feb 2023"
 end_date = "Sep 2023"
 location = "Sydney, NSW, Australia"
 summary = "Led reliability initiatives across cloud-native services with incident management ownership."
-featured = false
 highlights = [
   "Led high-severity incidents through investigation, mitigation, and resolution, and facilitated incident-management training across teams",
   "Implemented SLOs and tuned alerting strategies to reduce operational noise",
@@ -150,7 +186,6 @@ start_date = "May 2021"
 end_date = "Jan 2023"
 location = "Sydney, NSW, Australia"
 summary = "Built multi-language quality platforms for functional, contract, visual, and load testing across a 100+ service ecosystem."
-featured = false
 highlights = [
   "Implemented Pact contract testing across more than a dozen services in multiple languages",
   "Rolled out visual regression testing, reducing customer-reported UI defects and enabling safer CI/CD deployments",
@@ -166,7 +201,6 @@ start_date = "Feb 2020"
 end_date = "May 2021"
 location = "Sydney, Australia"
 summary = "Built automation for microservices and ML-adjacent systems in an agile delivery environment."
-featured = false
 highlights = [
   "Implemented functional, integration, and contract test coverage",
   "Improved existing Selenium/Gauge end-to-end framework",
@@ -176,11 +210,11 @@ highlights = [
 [[experience]]
 company = "Prospa"
 role = "Software Development Engineer in Test"
+timeline_summary = "Reusable automation frameworks and CI/CD-based quality gates."
 start_date = "May 2019"
 end_date = "Jan 2020"
 location = "Sydney, Australia"
 summary = "Built reusable automation frameworks and enabled CI/CD-based quality gates."
-featured = false
 highlights = [
   "Built Protractor UI and Mocha/Chai API test frameworks",
   "Implemented Appium mobile automation and test-data generation tooling",
@@ -191,12 +225,12 @@ highlights = [
 company = "Medical Director"
 role = "Software Engineer"
 timeline_group = "medical-director-2016"
-timeline_summary = "Full-stack development and test automation, from the graduate engineering program through to Software Engineer."
+timeline_role = "Software Engineer, from the graduate program"
+timeline_summary = "Full-stack development and test automation."
 start_date = "Oct 2017"
 end_date = "Apr 2019"
 location = "Sydney, Australia"
 summary = "Worked across full-stack development, TDD, and CI/CD automation in agile teams."
-featured = false
 highlights = [
   "Delivered end-to-end product features",
   "Maintained and improved CI/CD pipelines",
@@ -211,7 +245,6 @@ start_date = "Apr 2016"
 end_date = "Sep 2017"
 location = "Sydney, Australia"
 summary = "Joined through a graduate engineering program with rotations across software development and test automation."
-featured = false
 highlights = [
   "Built feature automation and dashboard tooling",
   "Delivered bug fixes and enhancements across frontend and backend systems"
@@ -233,6 +266,7 @@ end_date = "2015"
 
 [[skills]]
 name = "AI Tooling"
+highlight = true
 keywords = ["Claude Code", "Codex", "Cursor", "GitHub Copilot", "MCP", "Agent Skills"]
 
 [[skills]]
@@ -253,6 +287,7 @@ keywords = ["Playwright", "Test-Driven Development", "Visual Regression", "Contr
 
 [[skills]]
 name = "Spoken Languages"
+print_only = true
 keywords = ["Spanish (Elementary)"]
 
 [[awards]]

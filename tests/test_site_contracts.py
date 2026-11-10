@@ -2,6 +2,7 @@ from html.parser import HTMLParser
 from pathlib import Path
 from collections import Counter
 from html import unescape
+import json
 import re
 import struct
 import subprocess
@@ -72,31 +73,30 @@ class ResumeDataContracts(unittest.TestCase):
         with (ROOT / "data/resume.toml").open("rb") as source:
             cls.resume = tomllib.load(source)
 
-    def test_editorial_positioning_is_explicit(self) -> None:
-        self.assertEqual(
-            self.resume["basics"].get("hero_title"),
-            "Engineering across the whole delivery system.",
-        )
-        self.assertIn("Full-stack engineer", self.resume["basics"]["summary"])
+    def test_introduction_is_plain_and_first_person(self) -> None:
+        basics = self.resume["basics"]
+        self.assertEqual("I'm Ben, a software engineer", basics.get("hero_title"))
+        self.assertEqual("in Sydney.", basics.get("hero_accent"))
+        self.assertIn("**Octet**", basics["hero_intro"])
+        self.assertTrue(basics.get("contact_note"))
+        self.assertIn("Full-stack engineer", basics["summary"])
 
-    def test_exactly_three_roles_are_featured(self) -> None:
-        featured = [
-            item for item in self.resume["experience"] if item.get("featured", False)
-        ]
-        self.assertEqual(3, len(featured))
-        self.assertTrue(
-            all(item.get("featured_highlights", []) for item in featured)
-        )
+    def test_recent_work_has_three_complete_cases(self) -> None:
+        cases = self.resume.get("cases", [])
+        self.assertEqual(3, len(cases))
+        employers = {item["company"] for item in self.resume["experience"]}
+        for case in cases:
+            self.assertTrue(case["title"] and case["summary"] and case["period"])
+            self.assertTrue(case["points"] and case["tags"])
+            self.assertTrue(
+                any(employer.startswith(case["company"]) for employer in employers),
+                f"{case['company']} is not an employer in the experience list",
+            )
 
-    def test_evidence_is_attached_to_featured_roles(self) -> None:
-        evidence = [
-            note
-            for item in self.resume["experience"]
-            if item.get("featured", False)
-            for note in item.get("evidence", [])
-        ]
-        self.assertEqual(3, len(evidence))
-        self.assertTrue(all(note["title"] and note["detail"] for note in evidence))
+    def test_current_role_leads_the_experience_list(self) -> None:
+        current = self.resume["experience"][0]
+        self.assertEqual("Present", current["end_date"])
+        self.assertEqual(3, len(self.resume.get("now", [])))
 
     def test_practice_has_three_plain_language_entries(self) -> None:
         practice = self.resume.get("practice", [])
@@ -113,49 +113,95 @@ class BuiltSiteContracts(unittest.TestCase):
         cls.home = Document(cls.home_html)
         cls.print_document = Document(cls.print_html)
 
-    def test_homepage_contains_editorial_sections(self) -> None:
+    def test_homepage_contains_proof_first_sections(self) -> None:
         self.assertTrue(
             {
-                "selected-record",
-                "career-index",
+                "work",
+                "ai",
+                "career",
                 "projects",
                 "toolkit",
                 "background",
+                "contact",
             }
             <= self.home.ids
         )
 
-    def test_homepage_contains_chronicle_identity_and_positioning(self) -> None:
-        self.assertIn("Ben", self.home.text)
-        self.assertIn("Paternostro", self.home.text)
-        self.assertIn("production reliability", self.home.text)
-        self.assertIn("AI-assisted workflows", self.home_html)
+    def test_homepage_contains_identity_and_introduction(self) -> None:
+        self.assertIn("Ben Paternostro", self.home.text)
+        self.assertIn("I'm Ben, a software engineer", self.home.text)
+        self.assertIn("<strong>Octet</strong>", self.home_html)
+        self.assertIn("test automation and site reliability", self.home.text)
+        self.assertNotIn("**", self.home_html)
+
+    def test_homepage_shows_recent_work_and_agent_practice(self) -> None:
+        with (ROOT / "data/resume.toml").open("rb") as source:
+            resume = tomllib.load(source)
+        for item in resume["cases"] + resume["practice"]:
+            self.assertIn(item["title"], self.home.text)
+            self.assertIn(item["summary"], self.home.text)
+
+    def test_first_screen_offers_email_resume_and_profile_links(self) -> None:
+        self.assertIn("mailto:contact@benpaternostro.com", self.home.links)
+        self.assertIn("https://benpaternostro.com/resume/print/", self.home.links)
+        self.assertIn("https://www.linkedin.com/in/benpaternostro", self.home.links)
 
     def test_navigation_links_to_primary_sections(self) -> None:
         self.assertTrue(
-            {"#career-index", "#projects", "#contact"}
+            {"#work", "#career", "#projects", "#contact"}
             <= set(self.home.links)
         )
+
+    def test_copy_avoids_em_dashes(self) -> None:
+        self.assertNotIn("\u2014", self.home_html)
+        self.assertNotIn("&mdash;", self.home_html)
+
+    def test_link_preview_metadata_is_published(self) -> None:
+        self.assertIn('property="og:title"', self.home_html)
+        self.assertIn(
+            'property="og:image" content="https://benpaternostro.com/og.png"',
+            self.home_html,
+        )
+        self.assertIn('name="twitter:card" content="summary_large_image"', self.home_html)
+        image = (built_site() / "og.png").read_bytes()
+        self.assertEqual(b"\x89PNG\r\n\x1a\n", image[:8])
+        self.assertEqual((1200, 630), struct.unpack_from(">II", image, 16))
+        self.assertLess(len(image), 300_000)
+
+    def test_person_structured_data_is_valid_json(self) -> None:
+        match = re.search(
+            r'<script type="application/ld\+json">(.*?)</script>',
+            self.home_html,
+            re.DOTALL,
+        )
+        self.assertIsNotNone(match)
+        person = json.loads(match.group(1))
+        self.assertEqual("Person", person["@type"])
+        self.assertEqual("Ben Paternostro", person["name"])
+        self.assertEqual("https://benpaternostro.com", person["url"])
+        self.assertEqual("Octet", person["worksFor"]["name"])
+        self.assertIn("https://www.linkedin.com/in/benpaternostro", person["sameAs"])
 
     def test_every_fragment_link_resolves(self) -> None:
         for link in self.home.links:
             if link.startswith("#"):
                 self.assertIn(link[1:], self.home.ids)
 
-    def test_timeline_summaries_are_escaped_once(self) -> None:
+    def test_career_summaries_are_escaped_once(self) -> None:
         self.assertIn("hardware/software integration", self.home.text)
         self.assertIn("CI/CD-based quality gates", self.home.text)
         self.assertNotIn("&#x2F;", self.home.text)
 
-    def test_timeline_keeps_every_role_once_and_in_chronological_groups(self) -> None:
+    def test_career_keeps_every_role_once_and_in_chronological_groups(self) -> None:
         with (ROOT / "data/resume.toml").open("rb") as source:
             resume = tomllib.load(source)
         expected = Counter(item["role"] for item in resume["experience"])
         labels = [unescape(label) for label in re.findall(
-            r'<(?:p class="timeline-role"|h3)>([^<]+)</', self.home_html
+            r'<(?:small class="career-role"|h4)>([^<]+)</', self.home_html
         )]
         self.assertEqual(expected, Counter(label for label in labels if label in expected))
-        self.assertEqual(["2026", "2026", "2025", "2024", "2023", "2020", "2019", "2016"], self.home.years)
+        self.assertEqual(["2026", "2025", "2024", "2023", "2020", "2019", "2016"], self.home.years)
+        self.assertEqual(7, self.home_html.count("<details>"))
         for item in resume["experience"]:
             self.assertIn(item["start_date"], self.home.text)
             self.assertIn(item["end_date"], self.home.text)
@@ -190,6 +236,16 @@ class FontDeliveryContracts(unittest.TestCase):
         self.assertIn(
             "fonts/source-serif-4-latin-wght-normal.woff2", self.home_html
         )
+
+    def test_heading_font_is_shipped_as_woff2_and_preloaded(self) -> None:
+        asset = self.site / "fonts/bricolage-grotesque-latin.woff2"
+        self.assertTrue(asset.is_file(), "Bricolage is not in the built site")
+        self.assertEqual(b"wOF2", asset.read_bytes()[:4])
+        self.assertLess(asset.stat().st_size, 120_000)
+        self.assertIn("fonts/bricolage-grotesque-latin.woff2", self.home_html)
+        styles = (self.site / "styles.css").read_text()
+        self.assertIn("/fonts/bricolage-grotesque-latin.woff2", styles)
+        self.assertFalse(list((self.site / "fonts").glob("*.ttf")))
 
 
 class FaviconDeliveryContracts(unittest.TestCase):
@@ -265,6 +321,17 @@ class ResponsiveStyleContracts(unittest.TestCase):
     def test_body_does_not_force_a_viewport_wider_than_320px(self) -> None:
         styles = (ROOT / "static/styles.css").read_text()
         self.assertNotIn("min-width: 20rem", styles)
+
+
+class ThemeContracts(unittest.TestCase):
+    def test_dark_theme_follows_the_device_unless_a_choice_is_saved(self) -> None:
+        styles = (ROOT / "static/styles.css").read_text()
+        self.assertIn("@media (prefers-color-scheme: dark)", styles)
+        self.assertIn(':root:not([data-theme="light"])', styles)
+        self.assertIn(':root[data-theme="dark"]', styles)
+        home = (built_site() / "index.html").read_text()
+        self.assertIn('id="theme-toggle"', home)
+        self.assertIn('localStorage.getItem("theme")', home)
 
 
 if __name__ == "__main__":

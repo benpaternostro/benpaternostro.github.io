@@ -1,8 +1,20 @@
-<details class="profile-details" id="toolkit">
-  <summary>Toolkit <span class="disclosure-icon" aria-hidden="true"></span></summary>
-  <dl class="detail-body">
+<article class="panel" id="toolkit" aria-labelledby="toolkit-heading">
+  <h2 class="kicker" id="toolkit-heading">Toolkit</h2>
+  <dl class="kit">
     {% for skill in resume.skills %}
-    <dt>{{ skill.name }}</dt><dd>{{ skill.keywords | join(sep=", ") }}</dd>
+    {% if not skill.print_only | default(value=false) %}
+    <dt>{{ skill.name }}</dt>
+    <dd><ul class="chips{% if skill.highlight | default(value=false) %} ai{% endif %}">{% for keyword in skill.keywords %}<li>{{ keyword }}</li>{% endfor %}</ul></dd>
+    {% endif %}
     {% endfor %}
   </dl>
-</details>
+  <div class="edu" id="background">
+    <h3 class="sr-only">Education and awards</h3>
+    <ul>
+      {% for item in resume.education %}
+      <li><b>{{ item.institution }}</b>, {{ item.study_type }}{% if item.study_type == "Bachelor" %} of {% else %}, {% endif %}{{ item.area }}, {% if item.start_date == item.end_date %}{{ item.end_date }}{% else %}{{ item.start_date }} to {{ item.end_date }}{% endif %}</li>
+      {% endfor %}
+      {% if resume.awards %}<li>{{ resume.awards | map(attribute="title") | join(sep=", ") }}</li>{% endif %}
+    </ul>
+  </div>
+</article>

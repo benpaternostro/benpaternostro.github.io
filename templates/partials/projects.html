@@ -1,16 +1,11 @@
-{% if resume.projects %}
-<section class="chronicle-projects" id="projects" aria-labelledby="projects-heading">
-  <h2 id="projects-heading">Side projects</h2>
-  {% for project in resume.projects %}
-  <article>
-    {% if project.image %}
-    {% set image = resize_image(path=project.image, width=720, op="fit_width", format="webp", quality=82) %}
-    <a class="project-image" href="{{ project.url }}" aria-label="Explore {{ project.name }}"><img src="{{ image.url }}" width="{{ image.width }}" height="{{ image.height }}" alt="{{ project.image_alt }}" loading="lazy" decoding="async" /></a>
-    {% endif %}
-    <h3>{{ project.name }}</h3>
-    <p>{{ project.summary }}</p>
-    {% if project.url %}<a class="link" href="{{ project.url }}">Explore {{ project.name }} <svg aria-hidden="true"><use href="#arrow" /></svg></a>{% endif %}
-  </article>
-  {% endfor %}
-</section>
-{% endif %}
+{% for project in resume.projects %}
+<article class="panel project"{% if loop.first %} id="projects"{% endif %}>
+  <p class="kicker">Side project</p>
+  <h2>{% if project.url %}<a href="{{ project.url | safe }}">{{ project.name }} <svg aria-hidden="true"><use href="#arrow" /></svg></a>{% else %}{{ project.name }}{% endif %}</h2>
+  <p>{{ project.summary }}</p>
+  {% if project.image %}
+  {% set image = resize_image(path=project.image, width=720, op="fit_width", format="webp", quality=82) %}
+  <img src="{{ image.url | safe }}" width="{{ image.width }}" height="{{ image.height }}" alt="{{ project.image_alt }}" loading="lazy" decoding="async" />
+  {% endif %}
+</article>
+{% endfor %}
