@@ -28,26 +28,26 @@ value = "Claude Code, Codex, Cursor"
 [[cases]]
 company = "Greenstone"
 period = "2026"
-title = "Releases moved to business hours"
-summary = "Out-of-hours releases and manual checks in production became the exception."
+title = "Beneficiaries and payment arrangements"
+summary = "Customer-facing features on insurance portals used by tens of thousands of people."
 points = [
-  "End-to-end tests that run in about two minutes, on every release",
-  "Ephemeral environments in CI, with tests run in parallel",
-  "A self-service test-data API that became the default way into test environments"
+  "Built test-first and reviewed like any other change",
+  "Released gradually behind feature flags",
+  "Components built in Storybook, with visual regression tests"
 ]
-tags = ["Playwright", "Azure DevOps", "CI/CD"]
+tags = ["OpenFeature", "LaunchDarkly", "Storybook"]
 
 [[cases]]
 company = "Greenstone"
 period = "2026"
-title = "Observability and feature flags for customer portals"
-summary = "I led the adoption of three tools on insurance portals used by tens of thousands of people."
+title = "Releases moved to business hours"
+summary = "Out-of-hours releases and manual checks in production became the exception."
 points = [
-  "OpenTelemetry, with logs, metrics, traces and real user monitoring in Datadog",
-  "OpenFeature with LaunchDarkly for gradual feature rollouts",
-  "Storybook for component work, with visual regression tests"
+  "End-to-end tests that run in about two minutes, on every release",
+  "A self-service test-data API that became the default way into test environments",
+  "OpenTelemetry tracing, with logs, metrics and real user monitoring in Datadog"
 ]
-tags = ["OpenTelemetry", "Datadog", "LaunchDarkly", "Storybook"]
+tags = ["Playwright", "OpenTelemetry", "Datadog", "Azure DevOps"]
 
 [[cases]]
 company = "Rokt"
