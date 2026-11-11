@@ -87,7 +87,7 @@ class ResumeDataContracts(unittest.TestCase):
         employers = {item["company"] for item in self.resume["experience"]}
         for case in cases:
             self.assertTrue(case["title"] and case["summary"] and case["period"])
-            self.assertTrue(case["points"] and case["tags"])
+            self.assertTrue(case["points"])
             self.assertTrue(
                 any(employer.startswith(case["company"]) for employer in employers),
                 f"{case['company']} is not an employer in the experience list",

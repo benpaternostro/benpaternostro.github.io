@@ -7,7 +7,7 @@
       <h3>{{ case.title }}</h3>
       <p class="case-summary">{{ case.summary }}</p>
       <ul>{% for point in case.points %}<li>{{ point }}</li>{% endfor %}</ul>
-      <ul class="tags" aria-label="Tools">{% for tag in case.tags %}<li>{{ tag }}</li>{% endfor %}</ul>
+      {% if case.tags %}<ul class="tags" aria-label="Tools">{% for tag in case.tags %}<li>{{ tag }}</li>{% endfor %}</ul>{% endif %}
     </article>
     {% endfor %}
   </div>

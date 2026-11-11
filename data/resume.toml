@@ -29,13 +29,11 @@ value = "Claude Code, Codex, Cursor"
 company = "Greenstone"
 period = "2026"
 title = "Beneficiaries and payment arrangements"
-summary = "Customer-facing features on insurance portals used by tens of thousands of people."
+summary = "Two features in customer portals used by tens of thousands of people. I worked on them with two other engineers."
 points = [
-  "Built test-first and reviewed like any other change",
-  "Released gradually behind feature flags",
-  "Components built in Storybook, with visual regression tests"
+  "Full-stack work, front end and back end",
+  "Built some of the UI components and API endpoints"
 ]
-tags = ["OpenFeature", "LaunchDarkly", "Storybook"]
 
 [[cases]]
 company = "Greenstone"
