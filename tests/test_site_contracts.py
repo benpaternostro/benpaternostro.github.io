@@ -81,17 +81,6 @@ class ResumeDataContracts(unittest.TestCase):
         self.assertTrue(basics.get("contact_note"))
         self.assertIn("Full-stack engineer", basics["summary"])
 
-    def test_recent_work_has_three_complete_cases(self) -> None:
-        cases = self.resume.get("cases", [])
-        self.assertEqual(3, len(cases))
-        employers = {item["company"] for item in self.resume["experience"]}
-        for case in cases:
-            self.assertTrue(case["title"] and case["summary"] and case["period"])
-            self.assertTrue(case["points"])
-            self.assertTrue(
-                any(employer.startswith(case["company"]) for employer in employers),
-                f"{case['company']} is not an employer in the experience list",
-            )
 
     def test_current_role_leads_the_experience_list(self) -> None:
         current = self.resume["experience"][0]
@@ -111,7 +100,6 @@ class BuiltSiteContracts(unittest.TestCase):
     def test_homepage_contains_proof_first_sections(self) -> None:
         self.assertTrue(
             {
-                "work",
                 "career",
                 "projects",
                 "toolkit",
@@ -128,12 +116,6 @@ class BuiltSiteContracts(unittest.TestCase):
         self.assertIn("test automation and site reliability", self.home.text)
         self.assertNotIn("**", self.home_html)
 
-    def test_homepage_shows_recent_work(self) -> None:
-        with (ROOT / "data/resume.toml").open("rb") as source:
-            resume = tomllib.load(source)
-        for item in resume["cases"]:
-            self.assertIn(item["title"], self.home.text)
-            self.assertIn(item["summary"], self.home.text)
 
     def test_first_screen_offers_email_resume_and_profile_links(self) -> None:
         self.assertIn("mailto:contact@benpaternostro.com", self.home.links)
@@ -142,7 +124,7 @@ class BuiltSiteContracts(unittest.TestCase):
 
     def test_navigation_links_to_primary_sections(self) -> None:
         self.assertTrue(
-            {"#work", "#career", "#projects", "#contact"}
+            {"#career", "#projects", "#contact"}
             <= set(self.home.links)
         )
 

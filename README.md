@@ -49,8 +49,7 @@ The tests run `zola build` into a temporary folder, so Zola must be on `PATH`.
 - No third-party theme or CSS framework. Styling is a single hand-written
   stylesheet at `static/styles.css` using CSS custom properties.
 - "Proof first" single page, all driven by `data/resume.toml`: introduction with
-  email, résumé and LinkedIn buttons and a "Now" card, three "Recent work" cards
-  (`[[cases]]`), a career table
+  email, résumé and LinkedIn buttons and a "Now" card, a career table
   with one expandable row per employer, side projects, toolkit, and contact.
 - Roles that share a `timeline_group` appear as one career row. `timeline_role`
   and `timeline_summary` set the text shown on the closed row.

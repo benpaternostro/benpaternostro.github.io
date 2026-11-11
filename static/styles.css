@@ -123,19 +123,6 @@ svg.symbols { position: absolute; width: 0; height: 0; }
 .head h2 { font-size: clamp(28px, 3vw, 40px); letter-spacing: -.035em; }
 .head p { max-width: 40em; font: 16px/1.5 var(--serif); color: var(--muted); text-align: right; }
 
-.cases { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
-.case { display: flex; flex-direction: column; padding: 28px 28px 24px; border: 1px solid var(--rule); border-radius: 18px; background: var(--card); }
-.case .meta { display: flex; justify-content: space-between; gap: 12px; font-size: 13px; color: var(--muted); }
-.case .meta b { color: var(--accent); font-weight: 600; }
-.case h3 { margin-top: 44px; font-size: 29px; line-height: 1.08; letter-spacing: -.035em; }
-.case-summary { margin-top: 14px; font: 16.5px/1.55 var(--serif); color: var(--muted); }
-.case ul:not(.tags) { flex: 1; margin-top: 20px; padding-top: 18px; border-top: 1px solid var(--rule); }
-.case ul:not(.tags) li { position: relative; padding-left: 20px; font-size: 14.5px; line-height: 1.5; }
-.case ul:not(.tags) li + li { margin-top: 8px; }
-.case ul:not(.tags) li::before { content: ""; position: absolute; left: 0; top: .5em; width: 7px; height: 7px; border-radius: 2px; background: var(--accent); }
-.tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 22px; }
-.tags li { padding: 5px 10px; border-radius: 7px; background: var(--tint); color: var(--accent); font-size: 12.5px; font-weight: 500; }
-
 .career { border-top: 1.5px solid var(--ink); }
 .career > li { border-bottom: 1px solid var(--rule); }
 .career summary { display: grid; grid-template-columns: 130px 300px minmax(0, 1fr) 24px; gap: 28px; align-items: baseline; padding: 20px 0; list-style: none; cursor: pointer; }
@@ -209,8 +196,6 @@ details[open] .disclosure-icon::after { transform: rotate(0deg); }
   .hero { grid-template-columns: minmax(0, 1fr) 300px; gap: 40px; }
   .career summary { grid-template-columns: 110px 240px minmax(0, 1fr) 24px; gap: 20px; }
   .detail-body { padding-left: 130px; }
-  .case { padding: 24px 22px 22px; }
-  .case h3 { font-size: 25px; }
 }
 @media (max-width: 900px) {
   .hero { display: block; padding: 28px 0 44px; }
@@ -221,9 +206,6 @@ details[open] .disclosure-icon::after { transform: rotate(0deg); }
   .head { display: block; padding-bottom: 18px; }
   .head p { margin-top: 8px; text-align: left; }
   .block { padding-bottom: 52px; }
-  .cases, .duo { grid-template-columns: 1fr; gap: 14px; }
-  .case { padding: 22px; }
-  .case h3 { margin-top: 22px; font-size: 26px; }
   .career summary { grid-template-columns: minmax(0, 1fr) 20px; gap: 4px 12px; padding: 16px 0; }
   .career .yr { grid-column: 1 / -1; font-size: 13px; }
   .career h3 { font-size: 19px; }
@@ -260,7 +242,6 @@ details[open] .disclosure-icon::after { transform: rotate(0deg); }
   .hero { display: block; padding: 0 0 24px; }
   .hero h1 { font-size: 40px; }
   .block { padding-bottom: 28px; }
-  .case, .career > li, .panel { break-inside: avoid; }
   .contact { padding: 0; }
   details::details-content { display: block !important; content-visibility: visible !important; block-size: auto !important; opacity: 1 !important; }
 }

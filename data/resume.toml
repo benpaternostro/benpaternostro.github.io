@@ -25,40 +25,6 @@ value = ".NET Core, Vue.js, Blazor, SQL Server, AWS"
 label = "Agents"
 value = "Claude Code, Codex, Cursor"
 
-[[cases]]
-company = "Greenstone"
-period = "2026"
-title = "Beneficiaries and payment arrangements"
-summary = "Two features in customer portals used by tens of thousands of people. I worked on them with two other engineers."
-points = [
-  "Full-stack work, front end and back end",
-  "Built some of the UI components and API endpoints"
-]
-
-[[cases]]
-company = "Greenstone"
-period = "2026"
-title = "Releases moved to business hours"
-summary = "Out-of-hours releases and manual checks in production became the exception."
-points = [
-  "End-to-end tests that run in about two minutes, on every release",
-  "A self-service test-data API that became the default way into test environments",
-  "OpenTelemetry tracing, with logs, metrics and real user monitoring in Datadog"
-]
-tags = ["Playwright", "OpenTelemetry", "Datadog", "Azure DevOps"]
-
-[[cases]]
-company = "Rokt"
-period = "2020 to 2023"
-title = "Testing and reliability across 100+ services"
-summary = "Shared testing tools first, then site reliability. Received Rokt's company-wide Hidden Value award."
-points = [
-  "Pact contract tests across a dozen-plus services in several languages",
-  "Worked on releases gated only by automated tests, with automated rollback",
-  "Led high-severity incidents and ran incident training"
-]
-tags = ["Pact", "k6", "Kubernetes", "Go"]
-
 [[experience]]
 company = "Octet"
 role = "AI Software Engineer"

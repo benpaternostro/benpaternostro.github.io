@@ -38,7 +38,7 @@ components:
 **Direction: "Proof first"**
 
 The first screen says who Ben is and what he does now, with email, résumé and
-LinkedIn one tap away. Results come next as three "Recent work" cards. The full
+LinkedIn one tap away. The full
 career follows as a compact table that opens for detail. Copy is first person,
 plain and modest: no slogans. Templates read `data/resume.toml`; eleven roles
 appear in seven employer rows. The separate print résumé route is unchanged.
@@ -58,8 +58,8 @@ introduction, card summaries, career summaries and highlights.
 
 ## Layout
 
-Maximum width 1240px. Introduction beside a 340px "Now" card; three work cards;
-three numbered habits; career table (years, employer and role, summary,
+Maximum width 1240px. Introduction beside a 340px "Now" card; career
+table (years, employer and role, summary,
 disclosure); two panels (side project, toolkit with education); contact panel.
 At 900px everything stacks to one column and career summaries show only when a
 row is open. At 720px the section links leave the top bar, which keeps the

@@ -43,7 +43,6 @@
     <header class="container topbar">
       <a class="wordmark" href="{{ get_url(path='@/_index.md') }}"><span class="monogram" aria-hidden="true">{% for part in resume.basics.name | split(pat=" ") %}{{ part | truncate(length=1, end="") }}{% endfor %}</span>{{ resume.basics.name }}</a>
       <nav class="topnav" aria-label="Primary">
-        <a href="#work">Work</a>
         <a href="#career">Career</a>
         {% if resume.projects %}<a href="#projects">Projects</a>{% endif %}
         <a href="#contact">Contact</a>

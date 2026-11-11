@@ -31,7 +31,7 @@ Email, LinkedIn, the print résumé, and the independent Angla project are real 
 The user wants a minimal interface, brief copy, considered transitions, and full
 mobile/desktop usability. Copy is first person, plain and modest: no taglines
 and no em dashes. The homepage opens with a short introduction and a "Now" card,
-then three recent pieces of work, a career table with native expandable rows,
+then a career table with native expandable rows,
 the Angla side project, toolkit, and contact. The theme follows the device
 setting, with a switch that remembers an override.
 All eleven roles remain available; roles at the same employer share a row.
@@ -39,8 +39,7 @@ All eleven roles remain available; roles at the same employer share a row.
 ## Evidence on Hand
 
 - `data/resume.toml`: source of truth for identity, roles, dates, achievements,
-  recent work cards, skills, education, and the Angla description. Every figure
-  on the work cards comes from the role highlights in the same file.
+  skills, education, and the Angla description.
 - `assets/angla-app.jpg`: browser capture of Angla’s public example dashboard
   on 6 October 2026. The forecast data is illustrative.
 - `assets/README.md`: screenshot provenance; Zola publishes an optimized WebP.
