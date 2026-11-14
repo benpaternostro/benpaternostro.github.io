@@ -1,6 +1,9 @@
 {% set first_role = resume.experience | last %}
-<section class="block" id="career" aria-labelledby="career-heading">
-  <div class="head"><h2 id="career-heading">Career</h2><p>{{ first_role.start_date | split(pat=" ") | last }} to now. Open a row for more.</p></div>
+<section class="career-section" id="career" aria-labelledby="career-heading">
+  <div class="head"><h2 id="career-heading">Career</h2><p>{{ first_role.start_date | split(pat=" ") | last }} to now. Open a row for more.</p>
+    {# The key to the bar colours; shown once trace.js has drawn the bars. #}
+    <ul class="legend" aria-hidden="true">{% if resume.experience | filter(attribute="kind", value="build") | length > 0 %}<li data-kind="build">Software engineering</li>{% endif %}{% if resume.experience | filter(attribute="kind", value="test") | length > 0 %}<li data-kind="test">Test automation</li>{% endif %}{% if resume.experience | filter(attribute="kind", value="run") | length > 0 %}<li data-kind="run">Site reliability</li>{% endif %}</ul>
+  </div>
   <ol class="career" aria-label="Career, most recent first">
     {# Roles that share a timeline_group collapse into one row per company. #}
     {% set_global previous_group = "" %}
@@ -26,7 +29,7 @@
           </summary>
           <div class="detail-body">
             {% for role in roles %}
-            <div class="role">
+            <div class="role" data-start="{{ role.start_date }}" data-end="{{ role.end_date }}" data-kind="{{ role.kind }}">
               {% if roles | length > 1 %}<h4>{{ role.role }}</h4>{% endif %}
               <p class="role-dates">{{ role.start_date }} to {{ role.end_date }}</p>
               <ul>{% for highlight in role.highlights %}<li>{{ highlight }}</li>{% endfor %}</ul>

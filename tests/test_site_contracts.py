@@ -11,11 +11,22 @@ import tomllib
 import unittest
 from xml.etree import ElementTree
 from urllib.parse import urlsplit
+from zoneinfo import ZoneInfo
 
 
 ROOT = Path(__file__).resolve().parents[1]
 _BUILD_DIRECTORY = None
 _BUILT_SITE = None
+MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+KINDS = {"build", "test", "run"}
+
+
+def month_stamp(date: str) -> int | None:
+    """Months since year 0 for a date written like "Sep 2026", else None."""
+    match = re.fullmatch(r"([A-Z][a-z]{2}) (\d{4})", date)
+    if not match or match.group(1) not in MONTHS:
+        return None
+    return int(match.group(2)) * 12 + MONTHS.index(match.group(1))
 
 
 def built_site() -> Path:
@@ -87,6 +98,28 @@ class ResumeDataContracts(unittest.TestCase):
         self.assertEqual("Present", current["end_date"])
         self.assertEqual(3, len(self.resume.get("now", [])))
 
+    def test_every_role_has_dates_the_timeline_can_draw(self) -> None:
+        # trace.js reads "Sep 2026" or "Present"; anything else puts a bar in the wrong place.
+        previous_start = None
+        for item in self.resume["experience"]:
+            start = month_stamp(item["start_date"])
+            self.assertIsNotNone(start, f'{item["role"]}: start_date {item["start_date"]!r}')
+            if item["end_date"] != "Present":
+                end = month_stamp(item["end_date"])
+                self.assertIsNotNone(end, f'{item["role"]}: end_date {item["end_date"]!r}')
+                self.assertLessEqual(start, end, item["role"])
+            if previous_start is not None:
+                self.assertLessEqual(start, previous_start, "roles run newest first")
+            previous_start = start
+
+    def test_every_role_says_what_kind_of_work_it_was(self) -> None:
+        # The bar colours: software engineering, test automation, site reliability.
+        for item in self.resume["experience"]:
+            self.assertIn(item.get("kind"), KINDS, item["role"])
+
+    def test_clock_has_a_real_time_zone(self) -> None:
+        ZoneInfo(self.resume["basics"]["timezone"])
+
 
 class BuiltSiteContracts(unittest.TestCase):
     @classmethod
@@ -97,7 +130,7 @@ class BuiltSiteContracts(unittest.TestCase):
         cls.home = Document(cls.home_html)
         cls.print_document = Document(cls.print_html)
 
-    def test_homepage_contains_proof_first_sections(self) -> None:
+    def test_homepage_contains_every_section(self) -> None:
         self.assertTrue(
             {
                 "career",
@@ -182,6 +215,47 @@ class BuiltSiteContracts(unittest.TestCase):
             self.assertIn(item["start_date"], self.home.text)
             self.assertIn(item["end_date"], self.home.text)
 
+    def test_career_rows_carry_what_the_timeline_draws(self) -> None:
+        with (ROOT / "data/resume.toml").open("rb") as source:
+            resume = tomllib.load(source)
+        drawn = re.findall(
+            r'<div class="role" data-start="([^"]+)" data-end="([^"]+)" data-kind="([^"]+)">',
+            self.home_html,
+        )
+        self.assertEqual(
+            [(item["start_date"], item["end_date"], item["kind"]) for item in resume["experience"]],
+            drawn,
+        )
+        # The key above the bars names only the kinds of work that appear.
+        legend = re.search(r'<ul class="legend" aria-hidden="true">(.*?)</ul>', self.home_html, re.DOTALL)
+        self.assertIsNotNone(legend)
+        self.assertEqual(
+            {kind for _, _, kind in drawn},
+            set(re.findall(r'<li data-kind="([^"]+)">', legend.group(1))),
+        )
+
+    def test_effects_script_is_shipped_and_loaded_once_without_blocking(self) -> None:
+        script = built_site() / "trace.js"
+        self.assertTrue(script.is_file(), "trace.js is not in the built site")
+        tags = re.findall(r"<script[^>]*\bsrc=[^>]*>", self.home_html)
+        self.assertEqual(1, len(tags), tags)
+        self.assertRegex(tags[0], r'src="https://benpaternostro\.com/trace\.js\?h=[0-9a-f]+" defer>')
+        # Nothing is fetched from another site, and the print résumé needs no script at all.
+        self.assertNotIn("<script", self.print_html)
+        self.assertNotRegex(script.read_text(), r"https?://")
+
+    def test_page_is_complete_before_the_script_runs(self) -> None:
+        # The script only adds to the page: the bars, the lines and the clock are not in the HTML.
+        self.assertNotIn("<canvas", self.home_html)
+        self.assertNotIn('class="track"', self.home_html)
+        clock = re.search(r'<span class="clock"[^>]*>(.*?)</span>', self.home_html, re.DOTALL)
+        self.assertIsNotNone(clock)
+        self.assertEqual("", clock.group(1).strip())
+        tag = unescape(clock.group(0))
+        self.assertIn('data-zone="Australia/Sydney"', tag)
+        self.assertIn('data-place="Sydney"', tag)
+        self.assertIn('aria-hidden="true"', tag)
+
     def test_project_cover_is_published_without_prototype_dependencies(self) -> None:
         self.assertTrue(self.home.images)
         for url in self.home.images:
@@ -204,24 +278,38 @@ class FontDeliveryContracts(unittest.TestCase):
     def setUpClass(cls) -> None:
         cls.site = built_site()
         cls.home_html = (cls.site / "index.html").read_text()
+        cls.print_html = (cls.site / "resume/print/index.html").read_text()
+        cls.styles = (cls.site / "styles.css").read_text()
 
-    def test_source_serif_is_shipped_and_preloaded(self) -> None:
-        asset = self.site / "fonts/source-serif-4-latin-wght-normal.woff2"
-        self.assertTrue(asset.is_file(), "Source Serif 4 is not in the built site")
-        self.assertGreater(asset.stat().st_size, 10_000)
+    def assert_font_is_shipped_and_preloaded(self, name: str, limit: int) -> None:
+        asset = self.site / "fonts" / name
+        self.assertTrue(asset.is_file(), f"{name} is not in the built site")
+        self.assertEqual(b"wOF2", asset.read_bytes()[:4])
+        self.assertLess(asset.stat().st_size, limit)
         self.assertIn(
-            "fonts/source-serif-4-latin-wght-normal.woff2", self.home_html
+            f'rel="preload" href="https://benpaternostro.com/fonts/{name}" as="font"',
+            " ".join(self.home_html.split()),
         )
+        self.assertIn(f'url("/fonts/{name}")', self.styles)
 
     def test_heading_font_is_shipped_as_woff2_and_preloaded(self) -> None:
-        asset = self.site / "fonts/bricolage-grotesque-latin.woff2"
-        self.assertTrue(asset.is_file(), "Bricolage is not in the built site")
-        self.assertEqual(b"wOF2", asset.read_bytes()[:4])
-        self.assertLess(asset.stat().st_size, 120_000)
-        self.assertIn("fonts/bricolage-grotesque-latin.woff2", self.home_html)
-        styles = (self.site / "styles.css").read_text()
-        self.assertIn("/fonts/bricolage-grotesque-latin.woff2", styles)
-        self.assertFalse(list((self.site / "fonts").glob("*.ttf")))
+        # Bricolage Grotesque with its width axis: the headings are set narrow.
+        self.assert_font_is_shipped_and_preloaded("bricolage-grotesque-var.woff2", 160_000)
+        self.assertIn("font-stretch: 75% 100%", self.styles)
+
+    def test_text_font_is_shipped_as_woff2_and_preloaded(self) -> None:
+        self.assert_font_is_shipped_and_preloaded("libre-franklin-var.woff2", 40_000)
+
+    def test_every_shipped_font_is_used_and_carries_its_licence(self) -> None:
+        fonts = self.site / "fonts"
+        self.assertFalse(list(fonts.glob("*.ttf")))
+        pages = self.home_html + self.print_html + self.styles
+        shipped = sorted(font.name for font in fonts.glob("*.woff2"))
+        self.assertEqual([name for name in shipped if f"fonts/{name}" in pages], shipped)
+        for name in re.findall(r'url\("/fonts/([^"]+)"\)', self.styles):
+            self.assertTrue((fonts / name).is_file(), f"styles.css names {name}")
+        self.assertTrue((fonts / "bricolage-grotesque-LICENSE.txt").is_file())
+        self.assertTrue((fonts / "libre-franklin-LICENSE.txt").is_file())
 
 
 class FaviconDeliveryContracts(unittest.TestCase):
@@ -246,7 +334,8 @@ class FaviconDeliveryContracts(unittest.TestCase):
             self.home_html.index("favicon.svg"),
         )
 
-    def test_svg_favicon_uses_the_approved_vector_geometry(self) -> None:
+    def test_svg_favicon_is_the_blue_square_with_the_paper_b(self) -> None:
+        # Chosen 14 Nov 2026: the heading font's B, drawn as a path so no font is needed.
         svg = self.site / "favicon.svg"
         self.assertTrue(svg.is_file())
         root = ElementTree.parse(svg).getroot()
@@ -258,18 +347,11 @@ class FaviconDeliveryContracts(unittest.TestCase):
 
         rect, path = root
         self.assertEqual(
-            {"width": "32", "height": "32", "rx": "6", "fill": "#A33F2B"},
+            {"width": "32", "height": "32", "fill": "#20307A"},
             rect.attrib,
         )
-        self.assertEqual("#F3F0E8", path.attrib.get("fill"))
-        self.assertEqual("evenodd", path.attrib.get("fill-rule"))
-        self.assertEqual(
-            "M7 6h10.2c4.5 0 7.2 2.1 7.2 5.7 0 2.2-1.2 3.9-3.3 4.7 "
-            "2.6.7 4.1 2.4 4.1 4.7 0 3.7-2.9 5.9-7.7 5.9H7v-2.5h2V8.5H7V6Z"
-            "m5.5 2.5v6.7h4.1c2.8 0 4.2-1.1 4.2-3.4 0-2.2-1.4-3.3-4.2-3.3h-4.1Z"
-            "m0 9.1v6.9h4.6c2.9 0 4.4-1.1 4.4-3.5 0-2.3-1.5-3.4-4.5-3.4h-4.5Z",
-            path.attrib.get("d"),
-        )
+        self.assertEqual("#F2EDE1", path.attrib.get("fill"))
+        self.assertTrue(path.attrib.get("d", "").startswith("M10 26V6H"))
 
     def test_ico_fallback_contains_16_and_32_pixel_png_frames(self) -> None:
         ico = self.site / "favicon.ico"
@@ -299,15 +381,39 @@ class ResponsiveStyleContracts(unittest.TestCase):
         self.assertNotIn("min-width: 20rem", styles)
 
 
-class ThemeContracts(unittest.TestCase):
-    def test_dark_theme_follows_the_device_unless_a_choice_is_saved(self) -> None:
-        styles = (ROOT / "static/styles.css").read_text()
-        self.assertIn("@media (prefers-color-scheme: dark)", styles)
-        self.assertIn(':root:not([data-theme="light"])', styles)
-        self.assertIn(':root[data-theme="dark"]', styles)
-        home = (built_site() / "index.html").read_text()
-        self.assertIn('id="theme-toggle"', home)
-        self.assertIn('localStorage.getItem("theme")', home)
+class LookContracts(unittest.TestCase):
+    """Two inks on paper: one light look, with nothing to switch and nothing saved."""
+
+    @classmethod
+    def setUpClass(cls) -> None:
+        cls.styles = (ROOT / "static/styles.css").read_text()
+        cls.script = (ROOT / "static/trace.js").read_text()
+        cls.home_html = (built_site() / "index.html").read_text()
+        without_comments = re.sub(r"/\*.*?\*/", "", cls.styles, flags=re.DOTALL)
+        root = re.search(r":root \{(.*?)\n\}", without_comments, re.DOTALL)
+        cls.tokens = dict(re.findall(r"(--[a-z0-9-]+): ([^;]+);", root.group(1)))
+
+    def test_page_is_light_only(self) -> None:
+        self.assertIn("color-scheme: only light", self.styles)
+        self.assertNotIn("prefers-color-scheme", self.styles)
+        self.assertNotIn("theme-toggle", self.home_html)
+        for page in (self.home_html, self.script):
+            self.assertNotIn("localStorage", page)
+        self.assertIn(
+            f'<meta name="theme-color" content="{self.tokens["--bg"]}" />', self.home_html
+        )
+
+    def test_colours_the_script_draws_with_are_plain_hex(self) -> None:
+        # trace.js turns these into canvas colours; it reads six hex digits and nothing else.
+        for name in ("--bg", "--ridge", "--hot", "--build", "--test", "--run"):
+            self.assertIn(f"'{name}'", self.script)
+            self.assertRegex(self.tokens.get(name, ""), r"^#[0-9a-f]{6}$", name)
+        for kind in KINDS:
+            self.assertIn(f'[data-kind="{kind}"]', self.styles)
+
+    def test_reduced_motion_is_respected_by_the_sheet_and_the_script(self) -> None:
+        self.assertIn("@media (prefers-reduced-motion: reduce)", self.styles)
+        self.assertIn("matchMedia('(prefers-reduced-motion: reduce)')", self.script)
 
 
 if __name__ == "__main__":

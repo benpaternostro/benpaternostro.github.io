@@ -5,7 +5,7 @@
   <p>{{ project.summary }}</p>
   {% if project.image %}
   {% set image = resize_image(path=project.image, width=720, op="fit_width", format="webp", quality=82) %}
-  <img src="{{ image.url | safe }}" width="{{ image.width }}" height="{{ image.height }}" alt="{{ project.image_alt }}" loading="lazy" decoding="async" />
+  <div class="frame"><img src="{{ image.url | safe }}" width="{{ image.width }}" height="{{ image.height }}" alt="{{ project.image_alt }}" loading="lazy" decoding="async" /></div>
   {% endif %}
 </article>
 {% endfor %}

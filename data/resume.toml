@@ -6,6 +6,7 @@ hero_accent = "in Sydney."
 hero_intro = "I build full-stack features at **Octet**, mostly with AI coding tools. Before that I worked mainly in test automation and site reliability."
 contact_note = "I'm based in Sydney. Email is the best way to reach me."
 location = "Sydney, Australia"
+timezone = "Australia/Sydney"
 website = "https://benpaternostro.com"
 email = "contact@benpaternostro.com"
 summary = "Full-stack engineer shipping customer-facing software with AI-assisted workflows, rigorous testing, and production observability."
@@ -28,6 +29,7 @@ value = "Claude Code, Codex, Cursor"
 [[experience]]
 company = "Octet"
 role = "AI Software Engineer"
+kind = "build"
 timeline_summary = "Full-stack features and platform improvements on a finance platform, with AI-assisted engineering from design to release."
 start_date = "Sep 2026"
 end_date = "Present"
@@ -46,6 +48,7 @@ highlights = [
 [[experience]]
 company = "Greenstone Financial Services"
 role = "Senior Software Engineer"
+kind = "build"
 timeline_group = "greenstone-2025"
 timeline_role = "Senior Software Engineer, from Senior QA Engineer"
 timeline_summary = "Feature delivery and observability for insurance and financial services portals serving tens of thousands of users."
@@ -66,6 +69,7 @@ highlights = [
 [[experience]]
 company = "Greenstone Financial Services"
 role = "Senior Software QA Engineer"
+kind = "test"
 timeline_group = "greenstone-2025"
 start_date = "Mar 2025"
 end_date = "Feb 2026"
@@ -84,6 +88,7 @@ highlights = [
 [[experience]]
 company = "Simpology Australia"
 role = "QA Automation Lead"
+kind = "test"
 timeline_summary = "Company-wide automation strategy, roadmap and platform implementation."
 start_date = "Mar 2024"
 end_date = "Jan 2025"
@@ -101,6 +106,7 @@ highlights = [
 [[experience]]
 company = "DroneShield"
 role = "Senior Software QA Engineer"
+kind = "test"
 timeline_summary = "QA automation and release quality for distributed systems and hardware/software integration."
 start_date = "Oct 2023"
 end_date = "Mar 2024"
@@ -115,6 +121,7 @@ highlights = [
 [[experience]]
 company = "Rokt"
 role = "Senior Site Reliability Engineer"
+kind = "run"
 timeline_group = "rokt-2020"
 timeline_role = "Senior Site Reliability Engineer, from Software Engineer (QA)"
 timeline_summary = "Quality platforms across a 100+ service ecosystem, then reliability initiatives across cloud-native services."
@@ -133,6 +140,7 @@ highlights = [
 [[experience]]
 company = "Rokt"
 role = "Senior Software Engineer (QA)"
+kind = "test"
 timeline_group = "rokt-2020"
 start_date = "May 2021"
 end_date = "Jan 2023"
@@ -148,6 +156,7 @@ highlights = [
 [[experience]]
 company = "Rokt"
 role = "Software Engineer (QA)"
+kind = "test"
 timeline_group = "rokt-2020"
 start_date = "Feb 2020"
 end_date = "May 2021"
@@ -162,6 +171,7 @@ highlights = [
 [[experience]]
 company = "Prospa"
 role = "Software Development Engineer in Test"
+kind = "test"
 timeline_summary = "Reusable automation frameworks and CI/CD-based quality gates."
 start_date = "May 2019"
 end_date = "Jan 2020"
@@ -176,6 +186,7 @@ highlights = [
 [[experience]]
 company = "Medical Director"
 role = "Software Engineer"
+kind = "build"
 timeline_group = "medical-director-2016"
 timeline_role = "Software Engineer, from the graduate program"
 timeline_summary = "Full-stack development and test automation."
@@ -192,6 +203,7 @@ highlights = [
 [[experience]]
 company = "Medical Director"
 role = "Graduate / Junior Software Engineer"
+kind = "build"
 timeline_group = "medical-director-2016"
 start_date = "Apr 2016"
 end_date = "Sep 2017"
