@@ -276,10 +276,10 @@
     const ctx = cvs.getContext('2d');
     if (!ctx) return;
     const rnd = seeded(o.seed);
-    let N = touchUI ? o.phoneLines : o.lines, P = touchUI ? 96 : 160, dpr = Math.min(devicePixelRatio || 1, touchUI ? 1.5 : 2);
+    let N = touchUI ? o.phoneLines : o.lines, P = touchUI ? 64 : 160, dpr = Math.min(devicePixelRatio || 1, touchUI ? 1.5 : 2);
     let W = 0, H = 0, left = 0, docTop = 0, gap = 1, amp = 1;
     let u, v, tg, win, en, sinK, cosK, xs, ys, base, par, strokes = [];
-    let running = false, last = 0, acc = 0, frames = 0, slow = 0, level = 0, nextPacket = 0;
+    let running = false, last = 0, drawn = 0, acc = 0, frames = 0, slow = 0, level = 0, nextPacket = 0;
     const R = { on: false, gust: 0 };
     const ptr = { on: false, x: 0, y: 0, speed: 0, t: 0 };
     const packets = [0, 1, 2].map(() => ({ on: false, line: 0, pos: 0, v: 0, c: 0, age: 0 }));
@@ -455,7 +455,7 @@
     }
 
     // Quality ladder: if the first 90 frames are mostly slow, drop to 1x pixels and fewer points per
-    // line (twice at most). Phones already start at 1.5x and 96 points.
+    // line (twice at most). Phones already start at 1.5x and 64 points.
     function degrade() {
       level++; frames = 0; slow = 0;
       dpr = 1;
@@ -473,7 +473,9 @@
       target(t / 1000);
       while (acc >= STEP) { step(); acc -= STEP; }
       packetsUpdate(t, dt);
-      draw();
+      // Phones redraw at most 30 times a second (the strings still move at full rate), which leaves
+      // the phone enough time to keep scrolling smooth.
+      if (!touchUI || t - drawn >= 30) { drawn = t; draw(); }
       return true;
     }
     function wake() { if (R.on && !running && !reduced) { running = true; last = performance.now(); run(tick); } }

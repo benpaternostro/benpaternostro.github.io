@@ -145,8 +145,10 @@ details[open] .disclosure-icon::after { transform: rotate(0deg); }
 .bar { position: absolute; top: var(--bar-y); left: calc(var(--s) * 100%); width: calc((var(--e) - var(--s)) * 100%); height: var(--bar-h); }
 .seg { position: absolute; top: 0; bottom: 0; background: var(--kf); transition: filter .25s, opacity .3s; }
 .seg.notch::before { content: ""; position: absolute; left: -1px; top: -2px; bottom: -2px; width: 2px; background: var(--bg); }
-.bar.live .seg { background: linear-gradient(90deg, var(--k) 0 35%, var(--shimmer) 50%, var(--k) 65% 100%) 0 0 / 300% 100%; animation: shimmer 3.2s linear infinite; }
-@keyframes shimmer { from { background-position: 100% 0; } to { background-position: -50% 0; } }
+/* The current role's shimmer moves a highlight with transform, which the browser can do without repainting. */
+.bar.live .seg { overflow: hidden; background: var(--k); }
+.bar.live .seg::after { content: ""; position: absolute; top: 0; bottom: 0; left: 0; width: 300%; background: linear-gradient(90deg, transparent 35%, var(--shimmer) 50%, transparent 65%); animation: shimmer 3.2s linear infinite; }
+@keyframes shimmer { from { transform: translateX(-66.667%); } to { transform: translateX(33.333%); } }
 .cap { position: absolute; right: -5px; top: 50%; width: 10px; height: 10px; margin-top: -5px; border-radius: 50%; background: var(--live); }
 .cap::after { content: ""; position: absolute; inset: 0; border-radius: 50%; background: var(--live); animation: ping 2.4s ease-out infinite; }
 @keyframes ping { from { transform: scale(1); opacity: .55; } to { transform: scale(3.2); opacity: 0; } }
@@ -268,7 +270,7 @@ em .dc[data-g]::after { color: var(--build); }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .cap::after { animation: none; opacity: 0; }
-  .bar.live .seg { animation: none; background: var(--k); }
+  .bar.live .seg::after { display: none; }
   .scrub { transition: opacity .2s; }
   .disclosure-icon::before, .disclosure-icon::after { transition: none; }
   .career details::details-content { transition: none; }
