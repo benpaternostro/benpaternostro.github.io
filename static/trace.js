@@ -259,7 +259,9 @@
      drifting noise shape under a window that keeps the edges flat, and pushed by the mouse, a
      finger, a tap or a fast scroll. Physics runs at a fixed 120 steps a second on any device. */
   const touchUI = !fine.matches;
-  const STEP = 1000 / 120, HARM = 4;
+  const STEP = 1000 / 120, HARM = 4, RISE = 1600;
+  // Per physics step: the pull of each point towards its neighbours, towards the target shape, and the damping.
+  const TENSION = .25, SPRING = .02, DAMP = .012;
   // The canvas draws in the page's colours, read once from the stylesheet (plain six-digit hex there).
   const ink = (() => {
     const cs = getComputedStyle(root), get = (name) => cs.getPropertyValue(name).trim();
@@ -278,8 +280,8 @@
     const rnd = seeded(o.seed);
     let N = touchUI ? o.phoneLines : o.lines, P = touchUI ? 64 : 160, dpr = Math.min(devicePixelRatio || 1, touchUI ? 1.5 : 2);
     let W = 0, H = 0, left = 0, docTop = 0, gap = 1, amp = 1;
-    let u, v, tg, win, en, sinK, cosK, xs, ys, base, par, strokes = [];
-    let running = false, last = 0, drawn = 0, acc = 0, frames = 0, slow = 0, level = 0, nextPacket = 0;
+    let u, v, tg, win, en, sinK, cosK, xs, ys, base, par, cp, mm, strokes = [];
+    let running = false, last = 0, drawn = 0, acc = 0, frames = 0, slow = 0, level = 0, nextPacket = 0, rise = -1;
     const R = { on: false, gust: 0 };
     const ptr = { on: false, x: 0, y: 0, speed: 0, t: 0 };
     const packets = [0, 1, 2].map(() => ({ on: false, line: 0, pos: 0, v: 0, c: 0, age: 0 }));
@@ -290,6 +292,9 @@
       u = new Float32Array(N * P); v = new Float32Array(N * P); tg = new Float32Array(N * P); win = new Float32Array(N * P);
       sinK = new Float32Array(N * HARM * P); cosK = new Float32Array(N * HARM * P);
       xs = new Float32Array(P); ys = new Float32Array(P);
+      // Forward-sweep factors for rest(); they depend only on the number of points.
+      cp = new Float32Array(P); mm = new Float32Array(P);
+      for (let j = 1; j < P - 1; j++) { mm[j] = 1 / (SPRING + 2 * TENSION + TENSION * cp[j - 1]); cp[j] = -TENSION * mm[j]; }
       if (!par) {
         base = new Float32Array(N); en = new Float32Array(N); par = [];
         for (let i = 0; i < N; i++) par.push({
@@ -333,15 +338,16 @@
         g.addColorStop(.88, `rgba(${ink.line},${a})`); g.addColorStop(1, `rgba(${ink.line},0)`);
         strokes.push(g);
       }
-      if (!running) { if (reduced) target(14, true); draw(); }
+      if (!running) { if (reduced) { target(14); u.set(tg); } draw(); }
     }
 
     // The resting shape: four drifting harmonics per line under its window (no trig per point),
-    // through a cubic so the valleys flatten and the peaks stand up like a pulsar trace.
+    // through a cubic so the valleys flatten and the peaks stand up like a pulsar trace. s scales the
+    // height (the opening rise).
     const cs = new Float32Array(HARM * 2);
-    function target(t, still) {
+    function target(t, s = 1) {
       for (let i = 0; i < N; i++) {
-        const p = par[i], A = amp * p.a * 1.9;
+        const p = par[i], A = amp * p.a * 1.9 * s;
         for (let h = 0; h < HARM; h++) { cs[h * 2] = Math.cos(p.sp[h] * t + p.ph[h]); cs[h * 2 + 1] = Math.sin(p.sp[h] * t + p.ph[h]); }
         const q0 = i * HARM * P, q1 = q0 + P, q2 = q1 + P, q3 = q2 + P;
         for (let j = 0; j < P; j++) {
@@ -351,7 +357,18 @@
           tg[i * P + j] = win[i * P + j] * A * q * q * q;
         }
       }
-      if (still) u.set(tg);
+    }
+
+    // The shape the strings settle into under the target: the spring balances the tension, so each
+    // line solves (SPRING + 2 TENSION) u[j] - TENSION (u[j-1] + u[j+1]) = SPRING tg[j], ends held at 0.
+    // It is softer than the target itself; starting the strings anywhere else sets them ringing.
+    function rest() {
+      for (let i = 0; i < N; i++) {
+        const o0 = i * P;
+        u[o0] = u[o0 + P - 1] = 0;
+        for (let j = 1; j < P - 1; j++) u[o0 + j] = (SPRING * tg[o0 + j] + TENSION * u[o0 + j - 1]) * mm[j];
+        for (let j = P - 3; j > 0; j--) u[o0 + j] -= cp[j] * u[o0 + j + 1];
+      }
     }
 
     function step() {
@@ -374,7 +391,7 @@
         const o0 = i * P;
         for (let j = 1; j < P - 1; j++) {
           const q = o0 + j;
-          v[q] += .25 * (u[q - 1] - 2 * u[q] + u[q + 1]) + .02 * (tg[q] - u[q]) - .012 * v[q];
+          v[q] += TENSION * (u[q - 1] - 2 * u[q] + u[q + 1]) + SPRING * (tg[q] - u[q]) - DAMP * v[q];
         }
         let m = 0;
         for (let j = 1; j < P - 1; j++) { const w = v[o0 + j]; u[o0 + j] += w; if (w > m) m = w; else if (-w > m) m = -w; }
@@ -469,9 +486,17 @@
       // Count real frame times (a gap over 400 ms is a tab switch, not a slow device); clamp only the physics.
       if (level < 2 && raw < 400 && ++frames <= 90) { if (raw > 26) slow++; if (frames === 90 && slow > 50) degrade(); }
       const dt = raw > 100 || raw < 0 ? 16 : raw;
-      acc = Math.min(acc + dt, 60);
-      target(t / 1000);
-      while (acc >= STEP) { step(); acc -= STEP; }
+      if (rise < 0) { rise = t; nextPacket = t + RISE + 600; }
+      if (t - rise < RISE) {
+        // Opening: the lines rise out of flat into the shape they rest in, so nothing rings when the
+        // strings take over. Hands-on input waits until the rise is over.
+        target(t / 1000, easeInOut((t - rise) / RISE));
+        rest(); v.fill(0); R.gust = 0; acc = 0;
+      } else {
+        acc = Math.min(acc + dt, 60);
+        target(t / 1000);
+        while (acc >= STEP) { step(); acc -= STEP; }
+      }
       packetsUpdate(t, dt);
       // Phones redraw at most 30 times a second (the strings still move at full rate), which leaves
       // the phone enough time to keep scrolling smooth.
