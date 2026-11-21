@@ -225,26 +225,36 @@ class FaviconDeliveryContracts(unittest.TestCase):
         cls.home_html = (cls.site / "index.html").read_text()
 
     def test_ico_fallback_precedes_the_scalable_svg_favicon(self) -> None:
-        ico_reference = (
-            'rel="icon" href="https://benpaternostro.com/favicon.ico" '
-            'sizes="16x16 32x32"'
+        self.assertRegex(
+            self.home_html,
+            r'rel="icon" href="https://benpaternostro\.com/favicon\.ico\?h=[0-9a-f]+" sizes="16x16 32x32"',
         )
-        svg_reference = (
-            'rel="icon" type="image/svg+xml" '
-            'href="https://benpaternostro.com/favicon.svg" sizes="any"'
+        self.assertRegex(
+            self.home_html,
+            r'rel="icon" type="image/svg\+xml" href="https://benpaternostro\.com/favicon\.svg\?h=[0-9a-f]+" sizes="any"',
         )
-        self.assertIn(svg_reference, self.home_html)
-        self.assertIn(ico_reference, self.home_html)
+        self.assertRegex(
+            self.home_html,
+            r'rel="apple-touch-icon" href="https://benpaternostro\.com/apple-touch-icon\.png\?h=[0-9a-f]+" sizes="180x180"',
+        )
         self.assertLess(
             self.home_html.index("favicon.ico"),
             self.home_html.index("favicon.svg"),
         )
 
-    def test_svg_favicon_is_valid(self) -> None:
+    def test_svg_favicon_is_pure_ink_black_square_with_white_b(self) -> None:
         svg = self.site / "favicon.svg"
         self.assertTrue(svg.is_file())
         root = ElementTree.parse(svg).getroot()
+        ns = "{http://www.w3.org/2000/svg}"
         self.assertEqual("0 0 32 32", root.attrib.get("viewBox"))
+        self.assertEqual([f"{ns}rect", f"{ns}path"], [child.tag for child in root])
+        rect, path = root
+        self.assertEqual({"width": "32", "height": "32", "fill": "#111111"}, rect.attrib)
+        self.assertEqual("#FFFFFF", path.attrib.get("fill"))
+        touch = (self.site / "apple-touch-icon.png").read_bytes()
+        self.assertEqual(b"\x89PNG\r\n\x1a\n", touch[:8])
+        self.assertEqual((180, 180), struct.unpack_from(">II", touch, 16))
 
     def test_ico_fallback_contains_16_and_32_pixel_png_frames(self) -> None:
         ico = self.site / "favicon.ico"
