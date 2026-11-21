@@ -12,9 +12,9 @@ Minimal personal site built with Zola and deployed to GitHub Pages.
 ## Project Structure
 
 - `content/` markdown pages
-- `templates/` Tera templates (`index.html` single-page resume, `partials/`, `resume-print.html`)
+- `templates/` Tera templates (`base.html`, `index.html`, `404.html`, `resume-print.html`)
 - `data/resume.toml` source of truth for resume content
-- `static/` static assets, hand-written `styles.css` and `trace.js`, self-hosted `fonts/`, `og.png`, and `CNAME`
+- `static/` static assets, hand-written `styles.css`, self-hosted `fonts/`, `og.png`, and `CNAME`
 - `design/og-card.html` source for the link preview image `static/og.png`
 - `tests/` contract tests that build the site and check the output
 - `.github/workflows/deploy.yml` deployment workflow
@@ -46,32 +46,11 @@ The tests run `zola build` into a temporary folder, so Zola must be on `PATH`.
 
 ## Design
 
-- No third-party theme, CSS framework or script library. Styling is a single
-  hand-written stylesheet at `static/styles.css` using CSS custom properties; the
-  effects are one hand-written script at `static/trace.js`.
-- "Trace" single page in the "Riso" look (blue and red ink on paper), all driven
-  by `data/resume.toml`: introduction with email, résumé and LinkedIn links and a
-  "Now" block, the career with one expandable row per employer, side projects,
-  toolkit, and contact.
-- Roles that share a `timeline_group` appear as one career row. `timeline_role`
-  and `timeline_summary` set the text shown on the closed row.
-- `trace.js` draws each role as a bar on one time axis from its `start_date`,
-  `end_date` and `kind`, so the dates must be written like `Sep 2026` (or
-  `Present`) and `kind` must be `build` (software engineering), `test` (test
-  automation) or `run` (site reliability). It also draws the two fields of
-  lines and runs the clock, which uses `timezone` under `[basics]`.
-- The page is complete without the script: a plain list with every role. Reduced
-  motion turns the movement off.
-- One light look. There is no dark version and nothing is saved in the browser.
-- Self-hosted fonts: Bricolage Grotesque (variable, with its width axis) for
-  headings, Libre Franklin (variable) for everything else. The print résumé uses
-  Inter.
-- Link previews: Open Graph and Twitter tags, `Person` structured data, and
-  `static/og.png` (1200 x 630). To refresh the image after changing the headline,
-  edit `design/og-card.html` and screenshot it at 1200 x 630.
-- Tab icon: `static/favicon.svg` is a blue square with the heading font's B in
-  the paper colour, drawn as a path; `static/favicon.ico` holds the same icon at
-  16 and 32 px for browsers without SVG icons.
+- No third-party theme, CSS framework or script library. Styling is a single hand-written stylesheet at `static/styles.css` and the homepage ships zero JavaScript.
+- Pure Ink, All Serif: pure white `#ffffff` and black ink `#111111`, upright variable `Literata` across the entire homepage. Full work history and highlights live at `/resume/print/` (using Inter).
+- Roles that share a `timeline_group` collapse into one company row on the homepage; `short_company` and `short_summary` optionally shorten display names while keeping full text on `/resume/print/`.
+- One light look. No dark toggle and nothing saved in the browser.
+- Link previews: Open Graph and Twitter tags, `Person` structured data, and `static/og.png` (1200 x 630 from `design/og-card.html`).
 - Design decisions are recorded in `DESIGN.md` and `PRODUCT.md`.
 
 ## Resume Update Workflow (PDF -> TOML)

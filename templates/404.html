@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}Page not found · {{ config.title }}{% endblock title %}
+{% block description %}Page not found.{% endblock description %}
+
+{% block content %}
+<section class="hero" aria-labelledby="not-found-title">
+  <h1 id="not-found-title">Page not found</h1>
+  <p>That page does not exist on benpaternostro.com.</p>
+  <nav class="links" aria-label="Links">
+    <a href="{{ get_url(path='@/_index.md') }}">Home</a>
+    <a href="{{ get_url(path='@/resume-print.md') }}">Résumé</a>
+  </nav>
+</section>
+{% endblock content %}

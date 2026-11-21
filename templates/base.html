@@ -5,18 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>{% block title %}{{ config.title }}{% endblock title %}</title>
     <meta name="description" content="{% block description %}{{ config.description }}{% endblock description %}" />
-    <meta name="theme-color" content="#f2ede1" />
+    <meta name="theme-color" content="#ffffff" />
     {% block social %}{% endblock social %}
     <link
       rel="preload"
-      href="{{ get_url(path='fonts/bricolage-grotesque-var.woff2') }}"
-      as="font"
-      type="font/woff2"
-      crossorigin
-    />
-    <link
-      rel="preload"
-      href="{{ get_url(path='fonts/libre-franklin-var.woff2') }}"
+      href="{{ get_url(path='fonts/literata-var.woff2') }}"
       as="font"
       type="font/woff2"
       crossorigin
@@ -24,35 +17,9 @@
     <link rel="stylesheet" href="{{ get_url(path='styles.css', cachebust=true) }}" />
     <link rel="icon" href="{{ get_url(path='favicon.ico') }}" sizes="16x16 32x32" />
     <link rel="icon" type="image/svg+xml" href="{{ get_url(path='favicon.svg') }}" sizes="any" />
-    {% block scripts %}{% endblock scripts %}
   </head>
   <body>
-    {% set resume = load_data(path="data/resume.toml") %}
-    <svg class="symbols" aria-hidden="true"><symbol id="arrow" viewBox="0 0 24 24"><path d="M5 19 19 5M5 5h14v14" /></symbol></svg>
     <a class="skip" href="#main">Skip to content</a>
-
-    <header class="topbar">
-      <a class="wordmark" href="{{ get_url(path='@/_index.md') }}"><span class="monogram" aria-hidden="true">{% for part in resume.basics.name | split(pat=" ") %}{{ part | truncate(length=1, end="") }}{% endfor %}</span>{{ resume.basics.name }}</a>
-      <nav class="topnav" aria-label="Primary">
-        <a href="#career">Career</a>
-        {% if resume.projects %}<a href="#projects">Projects</a>{% endif %}
-        <a href="#contact">Contact</a>
-        <a class="btn small" href="{{ get_url(path='@/resume-print.md') }}">Résumé</a>
-      </nav>
-      {# The local time; trace.js fills it in. #}
-      <span class="clock" aria-hidden="true" data-zone="{{ resume.basics.timezone }}" data-place="{{ resume.basics.location | split(pat=',') | first }}"></span>
-    </header>
-
-    <main id="main">{% block content %}{% endblock content %}</main>
-
-    <footer class="site-footer">
-      <p>{{ resume.basics.name }} · {{ resume.basics.location }}</p>
-      <nav aria-label="More links">
-        <a href="{{ get_url(path='@/resume-print.md') }}">Résumé</a>
-        {% for link in resume.links %}
-        <a href="{{ link.url | safe }}">{{ link.label }}</a>
-        {% endfor %}
-      </nav>
-    </footer>
+    <main class="wrap" id="main">{% block content %}{% endblock content %}</main>
   </body>
 </html>

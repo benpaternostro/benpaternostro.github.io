@@ -3,48 +3,56 @@
 <html lang="en">
 <meta charset="utf-8" />
 <style>
-  @font-face { font-family: "Bricolage Grotesque"; src: url("../static/fonts/bricolage-grotesque-var.woff2") format("woff2"); font-weight: 200 800; font-stretch: 75% 100%; }
-  @font-face { font-family: "Libre Franklin"; src: url("../static/fonts/libre-franklin-var.woff2") format("woff2"); font-weight: 100 900; }
+  @font-face {
+    font-family: "Literata";
+    src: url("../static/fonts/literata-var.woff2") format("woff2");
+    font-weight: 400 700;
+    font-style: normal;
+  }
   * { box-sizing: border-box; margin: 0; }
-  body { position: relative; width: 1200px; height: 630px; padding: 60px 72px; overflow: hidden; background: #f2ede1; color: #20307a; font-family: "Libre Franklin", sans-serif; -webkit-font-smoothing: antialiased; }
-  .top { display: flex; align-items: center; gap: 16px; font: 800 30px/1 "Bricolage Grotesque", sans-serif; font-stretch: 82%; }
-  .mark { display: grid; place-items: center; width: 50px; height: 50px; background: #20307a; color: #f2ede1; font: 700 20px/1 "Libre Franklin", sans-serif; letter-spacing: .02em; }
-  .site { margin-left: auto; font: 500 25px/1 "Libre Franklin", sans-serif; color: #4a5791; }
-  h1 { margin-top: 46px; font: 800 108px/.98 "Bricolage Grotesque", sans-serif; font-stretch: 78%; letter-spacing: -.02em; }
-  h1 em { font-style: normal; text-decoration: underline; text-decoration-color: #e8442e; text-decoration-thickness: .1em; text-underline-offset: .09em; text-decoration-skip-ink: none; }
-  svg { position: absolute; left: 0; bottom: 0; width: 1200px; height: 230px; }
-  svg path { stroke: #e8442e; stroke-width: 1.5; fill: none; }
-  svg path.paper { stroke: none; fill: #f2ede1; }
+  body {
+    width: 1200px;
+    height: 630px;
+    padding: 88px 96px;
+    background: #ffffff;
+    color: #111111;
+    font-family: "Literata", Georgia, serif;
+    -webkit-font-smoothing: antialiased;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  h1 {
+    font-size: 76px;
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 24px;
+  }
+  p {
+    font-size: 34px;
+    line-height: 1.48;
+    color: #111111;
+    max-width: 28ch;
+  }
+  strong { font-weight: 600; }
+  .foot {
+    padding-top: 28px;
+    border-top: 1px solid #e8e8e4;
+    display: flex;
+    justify-content: space-between;
+    font-size: 26px;
+    color: #595956;
+  }
 </style>
 <body>
-  <div class="top"><span class="mark">BP</span>Ben Paternostro<span class="site">benpaternostro.com</span></div>
-  <h1>I'm Ben, a software<br />engineer <em>in Sydney.</em></h1>
-  <svg viewBox="0 0 1200 230" aria-hidden="true"></svg>
-  <script>
-    // A still of the lines under the home page's first screen: each line hides the ones behind it.
-    // The numbers are fixed, so the picture is the same every time it is drawn.
-    const W = 1200, H = 230, LINES = 15, svg = document.querySelector('svg');
-    let seed = 11;
-    const rnd = () => ((seed = (Math.imul(seed, 1664525) + 1013904223) >>> 0) / 4294967296);
-    const hills = Array.from({ length: 11 }, (_, k) => ({ at: 90 + (k + rnd()) * 93, wide: 50 + rnd() * 90, high: 40 + rnd() * 60, depth: rnd() }));
-    const base = (i) => 70 + i * 11;
-    const lift = (i, x) => Math.sin(Math.PI * x / W) ** .6 * hills.reduce((sum, h) =>
-      sum + h.high * Math.exp(-(((x - h.at) / h.wide) ** 2) - ((i / (LINES - 1) - h.depth) / .24) ** 2), 0);
-    // The tallest hill stops just under the top edge of the drawing, clear of the headline.
-    let scale = 1;
-    for (let i = 0; i < LINES; i++) for (let x = 0; x <= W; x += 6) scale = Math.min(scale, (base(i) - 6) / (lift(i, x) || 1));
-    for (let i = 0; i < LINES; i++) {
-      const t = i / (LINES - 1);
-      let d = '';
-      for (let x = 0; x <= W; x += 6) d += (x ? 'L' : 'M') + x + ',' + (base(i) - lift(i, x) * scale).toFixed(1);
-      const paper = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-      paper.setAttribute('class', 'paper');
-      paper.setAttribute('d', d + `L${W},${H}L0,${H}Z`);
-      const line = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-      line.setAttribute('d', d);
-      line.setAttribute('opacity', (.3 + .7 * t).toFixed(2));
-      svg.append(paper, line);
-    }
-  </script>
+  <div>
+    <h1>Ben Paternostro</h1>
+    <p>Software engineer in Sydney. Building at <strong>Octet</strong>, previously test automation and site reliability.</p>
+  </div>
+  <div class="foot">
+    <span>Sydney, Australia</span>
+    <span>benpaternostro.com</span>
+  </div>
 </body>
 </html>

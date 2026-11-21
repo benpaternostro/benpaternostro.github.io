@@ -4,6 +4,7 @@ headline = "AI Software Engineer"
 hero_title = "I'm Ben, a software engineer"
 hero_accent = "in Sydney."
 hero_intro = "I build full-stack features at **Octet**, mostly with AI coding tools. Before that I worked mainly in test automation and site reliability."
+short_bio = "Software engineer in Sydney. Building at **Octet**, previously test automation and site reliability."
 contact_note = "I'm based in Sydney. Email is the best way to reach me."
 location = "Sydney, Australia"
 timezone = "Australia/Sydney"
@@ -47,6 +48,7 @@ highlights = [
 
 [[experience]]
 company = "Greenstone Financial Services"
+short_company = "Greenstone"
 role = "Senior Software Engineer"
 kind = "build"
 timeline_group = "greenstone-2025"
@@ -87,6 +89,7 @@ highlights = [
 
 [[experience]]
 company = "Simpology Australia"
+short_company = "Simpology"
 role = "QA Automation Lead"
 kind = "test"
 timeline_summary = "Company-wide automation strategy, roadmap and platform implementation."
@@ -266,6 +269,7 @@ title = "Australian Government Scholarship"
 [[projects]]
 name = "Angla"
 summary = "A fishing weather and Instagram-style social app."
+short_summary = "Fishing weather app"
 url = "https://angla.xyz/"
 image = "assets/angla-app.jpg"
 image_alt = "Angla's example dashboard showing a fishing score, weather readings, and hourly conditions using sample data."

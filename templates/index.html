@@ -1,16 +1,16 @@
 {% extends "base.html" %}
 
-{% block title %}{% set resume = load_data(path="data/resume.toml") %}{{ resume.basics.name }} · {{ resume.basics.headline }}{% endblock title %}
-{% block description %}{% set resume = load_data(path="data/resume.toml") %}{{ resume.basics.hero_intro | replace(from="**", to="") }}{% endblock description %}
+{% block title %}{% set resume = load_data(path="data/resume.toml") %}{{ resume.basics.name }}{% endblock title %}
+{% block description %}{% set resume = load_data(path="data/resume.toml") %}{{ resume.basics.short_bio | replace(from="**", to="") }}{% endblock description %}
 
 {% block social %}
     {% set resume = load_data(path="data/resume.toml") %}
     {% set current = resume.experience | first %}
-    {% set intro = resume.basics.hero_intro | replace(from="**", to="") %}
+    {% set intro = resume.basics.short_bio | replace(from="**", to="") %}
     <link rel="canonical" href="{{ get_url(path='@/_index.md') }}" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="{{ resume.basics.name }}" />
-    <meta property="og:title" content="{{ resume.basics.name }} · {{ resume.basics.headline }}" />
+    <meta property="og:title" content="{{ resume.basics.name }}" />
     <meta property="og:description" content="{{ intro }}" />
     <meta property="og:url" content="{{ get_url(path='@/_index.md') }}" />
     <meta property="og:image" content="{{ get_url(path='og.png') }}" />
@@ -33,28 +33,62 @@
     </script>
 {% endblock social %}
 
-{% block scripts %}<script src="{{ get_url(path='trace.js', cachebust=true) }}" defer></script>{% endblock scripts %}
-
 {% block content %}
-{% include "partials/hero.html" %}
-{% include "partials/career.html" %}
-<section class="duo-section" aria-label="Side projects and toolkit">
-  <div class="duo">
-    {% include "partials/projects.html" %}
-    {% include "partials/skills.html" %}
-  </div>
-</section>
-<section class="contact" id="contact" aria-labelledby="contact-heading">
-  <div>
-    <h2 id="contact-heading">Get in touch</h2>
-    <p>{{ resume.basics.contact_note }}</p>
-  </div>
-  <div class="cta">
-    <a class="btn primary" href="mailto:{{ resume.basics.email }}">{{ resume.basics.email }}</a>
+{% set resume = load_data(path="data/resume.toml") %}
+<section class="hero" aria-labelledby="hero-title">
+  <h1 id="hero-title">{{ resume.basics.name }}</h1>
+  <p>{{ resume.basics.short_bio | markdown(inline=true) | safe }}</p>
+  <nav class="links" aria-label="Links">
+    <a href="{{ get_url(path='@/resume-print.md') }}">Résumé</a>
+    <a href="mailto:{{ resume.basics.email }}">Email</a>
     {% for link in resume.links %}
-    <a class="btn" href="{{ link.url | safe }}">{{ link.label }} <svg aria-hidden="true"><use href="#arrow" /></svg></a>
+    <a href="{{ link.url | safe }}">{{ link.label }}</a>
     {% endfor %}
-  </div>
-  <div class="ridge ridge-low" id="ridge-low" aria-hidden="true"></div>
+  </nav>
 </section>
+
+<div class="cols">
+  <section id="career" aria-labelledby="career-h">
+    <h2 class="sec-h" id="career-h">Career</h2>
+    <ol class="jobs" aria-label="Career, most recent first">
+      {% set_global previous_group = "" %}
+      {% for item in resume.experience %}
+      {% set group = item.timeline_group | default(value="") %}
+      {% if not group or group != previous_group %}
+        {% if group %}
+          {% set roles = resume.experience | filter(attribute="timeline_group", value=group) %}
+        {% else %}
+          {% set roles = [item] %}
+        {% endif %}
+        {% set oldest = roles | last %}
+        {% set start_year = oldest.start_date | split(pat=" ") | last %}
+        {% set end_year = item.end_date | split(pat=" ") | last %}
+        {% set is_current = item.end_date == "Present" %}
+        <li>
+          <span class="co">{{ item.short_company | default(value=item.company) }}</span>
+          <span class="yr"><time datetime="{{ start_year }}">{{ start_year }}</time>{% if is_current %} to now{% elif end_year != start_year %} to {{ end_year }}{% endif %}</span>
+        </li>
+      {% endif %}
+      {% set_global previous_group = group %}
+      {% endfor %}
+    </ol>
+  </section>
+
+  {% if resume.projects %}
+  {% set project = resume.projects | first %}
+  <section id="projects" aria-labelledby="proj-h">
+    <h2 class="sec-h" id="proj-h">Side project</h2>
+    {% if project.image %}
+    {% set image = resize_image(path=project.image, width=720, op="fit_width", format="webp", quality=82) %}
+    <a class="proj-shot" href="{{ project.url | safe }}" aria-label="Open {{ project.name }}">
+      <img class="proj-img" src="{{ image.url | safe }}" width="{{ image.width }}" height="{{ image.height }}" alt="{{ project.image_alt }}" loading="lazy" decoding="async" />
+    </a>
+    {% endif %}
+    <div class="proj-row">
+      <a class="proj-link" href="{{ project.url | safe }}">{{ project.name }}</a>
+      <p class="proj-desc">{{ project.short_summary | default(value=project.summary) }}</p>
+    </div>
+  </section>
+  {% endif %}
+</div>
 {% endblock content %}
